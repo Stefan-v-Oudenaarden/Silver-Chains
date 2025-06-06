@@ -1,0 +1,7 @@
+{
+  "name": "Silver Chain",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
