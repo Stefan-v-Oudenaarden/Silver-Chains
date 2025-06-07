@@ -1,19 +1,62 @@
 <div id="app-panels">
   <as-split direction="horizontal" [gutterSize]="2">
-    <as-split-area [size]="20" [minSize]="15">
-      <div id="links-panel"></div>
+    <as-split-area [size]="20" [minSize]="15" class="hide-overflow">
+      <div
+        id="links-panel"
+        cdkDropList
+        #linksList="cdkDropList"
+        [cdkDropListData]="Links"
+        [cdkDropListConnectedTo]="[chainList]"
+        [cdkDropListSortingDisabled]="true"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for(link of Links; track $index) {
+        <app-link-item
+          cdkDrag
+          [cdkDragData]="link"
+          class="no-text-select"
+          [Link]="link"
+          (dblclick)="OnLinkItemDoubleClick($event, link)"
+        ></app-link-item>
+        }
+      </div>
     </as-split-area>
-    <as-split-area [size]="40" [minSize]="40">
-      <div id="chain-panel"></div>
+
+    <as-split-area [size]="40" [minSize]="40" class="hide-overflow">
+      <div
+        id="chain-panel"
+        cdkDropList
+        #chainList="cdkDropList"
+        [cdkDropListData]="LinkChain()"
+        [cdkDropListConnectedTo]="[linksList]"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for(link of LinkChain(); track $index) {
+        <app-link-item
+          cdkDrag
+          [cdkDragData]="link"
+          class="no-text-select"
+          [Link]="link"
+          [IsInteractive]="true"
+          (dblclick)="OnChainLinkItemDoubleClick($event, link)"
+        ></app-link-item>
+        }
+      </div>
     </as-split-area>
+
     <as-split-area [size]="40" [minSize]="15">
       <div id="io-panel">
         <as-split direction="vertical" [gutterSize]="2">
-          <as-split-area [size]="50" [minSize]="15">
-            <div id="input-panel"></div>
+          <as-split-area [size]="50" [minSize]="15" class="hide-overflow">
+            <div id="input-panel">
+              <app-input-panel (UserInput)="OnUserInput($event)"></app-input-panel>
+            </div>
           </as-split-area>
-          <as-split-area [size]="50" [minSize]="15">
-            <div id="output-panel"></div>
+
+          <as-split-area [size]="50" [minSize]="15" class="hide-overflow">
+            <div id="output-panel">
+              <app-output-panel [SilverChainOutput]="SilverChainOutput()"></app-output-panel>
+            </div>
           </as-split-area>
         </as-split>
       </div>
