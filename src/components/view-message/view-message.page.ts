@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Platform, IonHeader, IonToolbar, IonButtons, IonBackButton, IonContent, IonItem, IonIcon, IonLabel, IonNote } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { personCircle } from 'ionicons/icons';
-import { DataService, Message } from '../services/data.service';
+import { DataService, Message } from '../../services/data.service';
 
 @Component({
   selector: 'app-view-message',

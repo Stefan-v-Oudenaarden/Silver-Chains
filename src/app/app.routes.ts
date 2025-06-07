@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: 'message/:id',
     loadComponent: () =>
-      import('./view-message/view-message.page').then((m) => m.ViewMessagePage),
+      import('../components/view-message/view-message.page').then((m) => m.ViewMessagePage),
   },
   {
     path: '',
