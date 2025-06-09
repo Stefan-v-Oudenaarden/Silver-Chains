@@ -12,7 +12,9 @@ export class LinkChainService {
   public ProcessInput(Input: string): string {
     let output = Input;
     for (let silverLink of this.LinkChain()) {
-      output = silverLink.Parse(output);
+      if (!silverLink.Disabled()) {
+        output = silverLink.Parse(output);
+      }
     }
 
     return output;

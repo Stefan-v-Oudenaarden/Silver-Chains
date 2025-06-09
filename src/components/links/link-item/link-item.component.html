@@ -1,3 +1,33 @@
-<div class="link-item" [ngClass]="{ 'link-item-interactive': IsInteractive() }">
-  <p>{{ Link().Name }}</p>
+<div class="link-item">
+  <div class="link-item-header">
+    @if(Link() === undefined) {
+    <h4>[Deleted Link]</h4>
+    }@else {
+    <h4>{{ Link().Name }}</h4>
+
+    @if(IsInteractive()) {
+    <ion-buttons>
+      @if(Link().HasSettings) {
+      <ion-button (click)="ToggleSettings($event)">
+        @if(SettingsVisible()) {
+        <ion-icon name="chevron-up-sharp"></ion-icon>
+        }@else{
+        <ion-icon name="chevron-down-sharp"></ion-icon>
+        }
+      </ion-button>
+      }
+      <ion-button (click)="ToggleLinkActive($event)">
+        @if(Link().Disabled()) {
+        <ion-icon name="eye-off-sharp" color="danger"></ion-icon>
+        }@else{
+        <ion-icon name="eye-sharp"></ion-icon>
+        }
+      </ion-button>
+      <ion-button (click)="TrashClick($event)">
+        <ion-icon name="trash-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    } }
+  </div>
+  @if(IsInteractive() && SettingsVisible()) { }
 </div>

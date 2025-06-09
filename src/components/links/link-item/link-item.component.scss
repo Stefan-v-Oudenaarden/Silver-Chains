@@ -1,16 +1,19 @@
 .link-item {
-  height: 40px;
-
-  background-color: var(--ion-color-light);
+  background-color: var(--component-background-color);
   border-bottom: 1px solid var(--ion-color-light-shade);
-  text-justify: center;
 
-  p {
-    margin: 0px;
-    padding: 10px;
+  .link-item-header {
+    display: flex;
+    justify-content: space-between;
+
+    height: 40px;
+    h4 {
+      margin: 0px;
+      padding: 10px;
+    }
+
+    ion-buttons {
+      height: 40px;
+    }
   }
-}
-
-.link-item-interactive {
-  background-color: var(--ion-color-success-tint);
 }

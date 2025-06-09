@@ -23,7 +23,10 @@ export class HomePage {
   public LinkChain = this.LinkChainService.LinkChain;
   public Links = this.LinksService.Links;
 
-  constructor() {}
+  constructor() {
+    this.LinkChain().push(this.Links[3]);
+    this.LinkChain().push(this.Links[2]);
+  }
 
   RunSilverLinkChain() {
     const input = this.UserInput();
@@ -34,11 +37,12 @@ export class HomePage {
 
   OnLinkItemDoubleClick(event: any, link: SilverLink) {
     let currentChain = this.LinkChain();
-    currentChain.push(link);
+    currentChain.push(link.New());
     this.LinkChain.set(currentChain);
   }
 
-  OnChainLinkItemDoubleClick(event: any, link: SilverLink) {
+  OnChainLinkTrash(link: SilverLink) {
+    console.log('bla');
     let currentChain = this.LinkChain();
     currentChain = currentChain.filter((item) => {
       return item !== link;

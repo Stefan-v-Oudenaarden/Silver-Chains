@@ -5,10 +5,14 @@ import { v4 as uuidv4 } from 'uuid';
 export class BeeMovieLink implements SilverLink {
   public Error = signal<boolean>(false);
   public Output = signal<string>('');
+  public Disabled = signal<boolean>(false);
 
   public Id: string = uuidv4();
   public Name: string = 'Bee Movie';
   public Description: string = 'The first 500 characters of the bee movie script';
+
+  public HasSettings: boolean = true;
+  public ShowSettingsByDefault: boolean = true;
 
   public Parse(Input: string): string {
     let result = `According to all known laws of aviation, there is no way a bee should be able to fly.

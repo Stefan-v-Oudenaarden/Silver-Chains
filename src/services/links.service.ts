@@ -9,6 +9,10 @@ export interface SilverLink {
 
   Error: WritableSignal<boolean>;
   Output: WritableSignal<string>;
+  Disabled: WritableSignal<boolean>;
+
+  HasSettings: boolean;
+  ShowSettingsByDefault: boolean;
 
   Parse(Input: string): string;
   New(): SilverLink;

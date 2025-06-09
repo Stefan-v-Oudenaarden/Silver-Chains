@@ -38,7 +38,7 @@
           class="no-text-select"
           [Link]="link"
           [IsInteractive]="true"
-          (dblclick)="OnChainLinkItemDoubleClick($event, link)"
+          (TrashLink)="OnChainLinkTrash(link)"
         ></app-link-item>
         }
       </div>
