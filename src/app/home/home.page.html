@@ -1,6 +1,9 @@
 <div id="app-panels">
-  <as-split direction="horizontal" [gutterSize]="2">
+  <as-split direction="horizontal" [gutterSize]="3">
     <as-split-area [size]="20" [minSize]="15" class="hide-overflow">
+      <div class="panel-header">
+        <h3>Operators</h3>
+      </div>
       <div
         id="links-panel"
         cdkDropList
@@ -10,7 +13,7 @@
         [cdkDropListSortingDisabled]="true"
         (cdkDropListDropped)="drop($event)"
       >
-        @for(link of Links; track $index) {
+        <!-- @for(link of Links; track $index) {
         <app-link-item
           cdkDrag
           [cdkDragData]="link"
@@ -18,11 +21,36 @@
           [Link]="link"
           (dblclick)="OnLinkItemDoubleClick($event, link)"
         ></app-link-item>
+        } -->
+
+        @for (category of LinkCategories(); track $index) {
+        <ion-accordion-group value="category">
+          <ion-accordion value="category">
+            <ion-item slot="header" color="secondary">
+              <ion-label>{{category}}</ion-label>
+            </ion-item>
+            <div class="" slot="content">
+              @for (link of LinksByCategory().get(category); track $index) {
+              <app-link-item
+                cdkDrag
+                [cdkDragData]="link"
+                class="no-text-select"
+                [Link]="link"
+                (dblclick)="OnLinkItemDoubleClick($event, link)"
+              ></app-link-item>
+              }
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+
         }
       </div>
     </as-split-area>
 
-    <as-split-area [size]="40" [minSize]="40" class="hide-overflow">
+    <as-split-area [size]="40" [minSize]="15" class="hide-overflow">
+      <div class="panel-header">
+        <h3>Chain</h3>
+      </div>
       <div
         id="chain-panel"
         cdkDropList
@@ -47,7 +75,7 @@
 
     <as-split-area [size]="40" [minSize]="15">
       <div id="io-panel">
-        <as-split direction="vertical" [gutterSize]="2">
+        <as-split direction="vertical" [gutterSize]="3">
           <as-split-area [size]="50" [minSize]="15" class="hide-overflow">
             <div id="input-panel">
               <app-input-panel (UserInput)="OnUserInput($event)"></app-input-panel>

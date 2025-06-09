@@ -7,13 +7,22 @@
     justify-content: space-between;
 
     height: 40px;
-    h4 {
-      margin: 0px;
-      padding: 10px;
+
+    ion-item {
+      --ion-item-background: var(--component-background-color);
+      ion-label {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
     }
 
     ion-buttons {
       height: 40px;
     }
+  }
+
+  .link-item-settings {
+    padding: 10px;
   }
 }

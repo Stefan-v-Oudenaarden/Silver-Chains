@@ -1,5 +1,16 @@
+.panel-header {
+  height: 50px;
+  background-color: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+
+  h3 {
+    margin: 0px;
+    padding: 10px;
+  }
+}
+
 ion-textarea {
-  height: 100%;
+  height: calc(100% - 50px);
 
   overflow: auto;
   scrollbar-width: thin;

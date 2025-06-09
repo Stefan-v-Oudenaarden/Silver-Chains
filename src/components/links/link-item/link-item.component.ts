@@ -1,16 +1,20 @@
-import { Component, computed, input, linkedSignal, OnInit, output, signal } from '@angular/core';
-
-import { SilverLink } from 'src/services/links.service';
-import { GetCssVariableFromDocument } from 'src/app/helpers';
-import { IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
-import { trashSharp, eyeOffSharp, eyeSharp, chevronUpSharp, chevronDownSharp } from 'ionicons/icons';
+import { Component, computed, effect, input, linkedSignal, OnInit, output, signal, Signal, WritableSignal } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { FormGroup } from '@angular/forms';
+import { IonButton, IonButtons, IonIcon, IonLabel, IonItem } from '@ionic/angular/standalone';
+import { FormlyFieldConfig, FormlyForm, FormlyFormOptions } from '@ngx-formly/core';
 import { addIcons } from 'ionicons';
+import { chevronDownSharp, chevronUpSharp, eyeOffSharp, eyeSharp, trashSharp } from 'ionicons/icons';
+import { debounce, debounceTime, distinct, distinctUntilChanged } from 'rxjs';
+
+import { GetCssVariableFromDocument } from 'src/app/helpers';
+import { SilverLink } from 'src/services/links.service';
 
 @Component({
   selector: 'app-link-item',
   templateUrl: './link-item.component.html',
   styleUrls: ['./link-item.component.scss'],
-  imports: [IonIcon, IonButton, IonButtons],
+  imports: [IonItem, IonLabel, IonIcon, IonButton, IonButtons, FormlyForm],
   host: {
     '[style.--component-background-color]': 'backgroundColor()',
   },
@@ -23,6 +27,28 @@ export class LinkItemComponent implements OnInit {
   public TrashLink = output<void>();
   public TriggerLinkchain = output<void>();
 
+  //Formly form interactivity
+  private modelValue = signal('');
+  private modelChanges$ = toObservable(this.modelValue).pipe(debounceTime(50), distinctUntilChanged(), takeUntilDestroyed());
+
+  public form = new FormGroup([]);
+  public model: any = {};
+  public options: FormlyFormOptions = {};
+
+  private providedFields = signal<FormlyFieldConfig[]>([]);
+  //Best supported way i found to get callbacks from Formly on value changes. For live updating the output.
+  public fields = computed(() => {
+    return this.providedFields().map((field) => {
+      if (field && field.props) {
+        field.props.keydown = () => setTimeout(() => this.modelValue.set(JSON.stringify(this.model)));
+        field.props.change = () => setTimeout(() => this.modelValue.set(JSON.stringify(this.model)));
+      }
+
+      return field;
+    });
+  });
+
+  //CSS Variables
   private backgroundColor = computed(() => {
     const link = this.Link();
     if (link === undefined) {
@@ -40,12 +66,38 @@ export class LinkItemComponent implements OnInit {
     return GetCssVariableFromDocument('ion-color-light-tint');
   });
 
-  public SettingsVisible = linkedSignal(() => {
-    return this.Link().ShowSettingsByDefault;
-  });
-
   constructor() {
     addIcons({ trashSharp, eyeOffSharp, eyeSharp, chevronUpSharp, chevronDownSharp });
+    this.modelChanges$.subscribe(() => {
+      if (this.IsInteractive()) {
+        this.TriggerLinkchain.emit();
+      }
+    });
+
+    //Populate the formly fields if this link has Settings
+    effect(() => {
+      const link = this.Link();
+
+      if (!link.HasSettings) {
+        return;
+      }
+
+      if (link.SettingsForm) {
+        this.providedFields.set(link.SettingsForm);
+      } else {
+        console.warn('Link has enabled settings but does not have a settings form.', link);
+      }
+
+      if (link.Settings) {
+        this.model = link.Settings;
+      } else {
+        console.warn('Link has enabled settings but does not have a settings field.', link);
+      }
+
+      if (link.SettingsFormOptions) {
+        this.options = link.SettingsFormOptions;
+      }
+    });
   }
 
   ngOnInit() {}
@@ -56,7 +108,7 @@ export class LinkItemComponent implements OnInit {
   }
 
   ToggleSettings(event: MouseEvent) {
-    this.SettingsVisible.set(!this.SettingsVisible());
+    this.Link().ShowSettings.set(!this.Link().ShowSettings());
   }
 
   TrashClick(event: MouseEvent) {

@@ -1,10 +1,12 @@
 import { Injectable, Signal, WritableSignal } from '@angular/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/SimpleTextEdits';
 import { BeeMovieLink } from 'src/SilverLinks/StaticTextLinks';
 
 export interface SilverLink {
   Name: string;
   Description: string;
+  Category: string;
   Id: string;
 
   Error: WritableSignal<boolean>;
@@ -12,7 +14,11 @@ export interface SilverLink {
   Disabled: WritableSignal<boolean>;
 
   HasSettings: boolean;
-  ShowSettingsByDefault: boolean;
+  ShowSettings: WritableSignal<boolean>;
+
+  Settings?: any;
+  SettingsForm?: FormlyFieldConfig[];
+  SettingsFormOptions?: FormlyFormOptions;
 
   Parse(Input: string): string;
   New(): SilverLink;

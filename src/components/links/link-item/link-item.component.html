@@ -1,15 +1,21 @@
 <div class="link-item">
   <div class="link-item-header">
     @if(Link() === undefined) {
-    <h4 (dblclick)="TrashClick($event)">[Deleted Link]</h4>
+    <ion-item slot="header" color="secondary">
+      <ion-label (dblclick)="TrashClick($event)"> [Deleted Link] </ion-label>
+    </ion-item>
+
     }@else {
-    <h4 (dblclick)="TrashClick($event)">{{ Link().Name }}</h4>
+    <ion-item slot="header">
+      <ion-label (dblclick)="TrashClick($event)">{{ Link().Name }}</ion-label>
+    </ion-item>
+    <!-- <h4 (dblclick)="TrashClick($event)">{{ Link().Name }}</h4> -->
 
     @if(IsInteractive()) {
     <ion-buttons>
       @if(Link().HasSettings) {
       <ion-button (click)="ToggleSettings($event)">
-        @if(SettingsVisible()) {
+        @if(this.Link().ShowSettings()) {
         <ion-icon name="chevron-up-sharp"></ion-icon>
         }@else{
         <ion-icon name="chevron-down-sharp"></ion-icon>
@@ -29,5 +35,9 @@
     </ion-buttons>
     } }
   </div>
-  @if(IsInteractive() && SettingsVisible()) { }
+  @if(IsInteractive() && this.Link().ShowSettings()) {
+  <div class="link-item-settings">
+    <formly-form [model]="model" [fields]="fields()" [options]="options"></formly-form>
+  </div>
+  }
 </div>

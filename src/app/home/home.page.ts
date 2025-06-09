@@ -1,17 +1,31 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { SplitAreaComponent, SplitComponent } from 'angular-split';
-import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList, copyArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { LinksService, SilverLink } from 'src/services/links.service';
 import { LinkChainService } from 'src/services/linkchain.service';
 import { InputPanelComponent } from '../../components/panels/input-panel/input-panel.component';
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
 import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
+import { link } from 'ionicons/icons';
+import { IonAccordion, IonAccordionGroup, IonItem, IonLabel } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [SplitComponent, SplitAreaComponent, CdkDropList, CdkDrag, InputPanelComponent, OutputPanelComponent, LinkItemComponent],
+  imports: [
+    IonLabel,
+    IonItem,
+    IonAccordionGroup,
+    IonAccordion,
+    SplitComponent,
+    SplitAreaComponent,
+    CdkDropList,
+    CdkDrag,
+    InputPanelComponent,
+    OutputPanelComponent,
+    LinkItemComponent,
+  ],
 })
 export class HomePage {
   private LinksService = inject(LinksService);
@@ -23,11 +37,23 @@ export class HomePage {
   public LinkChain = this.LinkChainService.LinkChain;
   public Links = this.LinksService.Links;
 
-  constructor() {
-    this.LinkChain().push(this.Links[3]);
-    this.LinkChain().push(this.Links[2]);
+  public LinkCategories = computed(() => {
+    return new Set(this.Links.map((link) => link.Category));
+  });
 
+  public LinksByCategory = computed(() => {
+    let linksByCategory = new Map<string, SilverLink[]>();
+    for (const category of this.LinkCategories()) {
+      const links = this.Links.filter((link) => link.Category === category);
+      linksByCategory.set(category, links);
+    }
+
+    return linksByCategory;
+  });
+
+  constructor() {
     this.RunSilverLinkChain();
+    console.log(this.LinksByCategory());
   }
 
   RunSilverLinkChain() {
