@@ -21,6 +21,7 @@ export class LinkItemComponent implements OnInit {
   public IsInteractive = input<boolean>(false);
 
   public TrashLink = output<void>();
+  public TriggerLinkchain = output<void>();
 
   private backgroundColor = computed(() => {
     const link = this.Link();
@@ -51,6 +52,7 @@ export class LinkItemComponent implements OnInit {
 
   ToggleLinkActive(event: MouseEvent) {
     this.Link().Disabled.set(!this.Link().Disabled());
+    this.TriggerLinkchain.emit();
   }
 
   ToggleSettings(event: MouseEvent) {

@@ -26,6 +26,8 @@ export class HomePage {
   constructor() {
     this.LinkChain().push(this.Links[3]);
     this.LinkChain().push(this.Links[2]);
+
+    this.RunSilverLinkChain();
   }
 
   RunSilverLinkChain() {
@@ -42,7 +44,6 @@ export class HomePage {
   }
 
   OnChainLinkTrash(link: SilverLink) {
-    console.log('bla');
     let currentChain = this.LinkChain();
     currentChain = currentChain.filter((item) => {
       return item !== link;

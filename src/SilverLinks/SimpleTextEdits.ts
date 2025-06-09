@@ -16,6 +16,7 @@ export class ToLowerCaseLink implements SilverLink {
 
   public Parse(Input: string): string {
     let result = Input.toLocaleLowerCase();
+    this.Output.set(result);
     return result;
   }
 
@@ -38,6 +39,7 @@ export class ToUpperCaseLink implements SilverLink {
 
   public Parse(Input: string): string {
     let result = Input.toLocaleUpperCase();
+    this.Output.set(result);
     return result;
   }
 
@@ -59,8 +61,14 @@ export class TrimTextLink implements SilverLink {
   public ShowSettingsByDefault: boolean = true;
 
   public Parse(Input: string): string {
-    let result = Input.trim();
-    return result;
+    let lines = Input.split('\n');
+    let output = '';
+    for (let line of lines) {
+      output += line.trim() + '\n';
+    }
+
+    this.Output.set(output);
+    return output;
   }
 
   public New(): SilverLink {

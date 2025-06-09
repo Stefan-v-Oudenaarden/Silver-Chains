@@ -1,9 +1,9 @@
 <div class="link-item">
   <div class="link-item-header">
     @if(Link() === undefined) {
-    <h4>[Deleted Link]</h4>
+    <h4 (dblclick)="TrashClick($event)">[Deleted Link]</h4>
     }@else {
-    <h4>{{ Link().Name }}</h4>
+    <h4 (dblclick)="TrashClick($event)">{{ Link().Name }}</h4>
 
     @if(IsInteractive()) {
     <ion-buttons>
