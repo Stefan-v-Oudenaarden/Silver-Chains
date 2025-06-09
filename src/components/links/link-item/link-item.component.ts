@@ -57,7 +57,11 @@ export class LinkItemComponent implements OnInit {
 
     if (this.IsInteractive()) {
       if (!link.Disabled()) {
-        return GetCssVariableFromDocument('ion-color-success-tint');
+        if (link.Error()) {
+          return GetCssVariableFromDocument('ion-color-danger');
+        } else {
+          return GetCssVariableFromDocument('ion-color-success-tint');
+        }
       } else {
         return GetCssVariableFromDocument('ion-color-light-tint');
       }

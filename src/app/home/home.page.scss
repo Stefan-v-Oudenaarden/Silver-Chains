@@ -10,6 +10,7 @@
     h3 {
       margin: 0px;
       padding: 10px;
+      padding-left: 16px;
     }
   }
 
@@ -19,6 +20,14 @@
     height: calc(100% - 50px);
     overflow: auto;
     scrollbar-width: thin;
+
+    ion-accordion-group {
+      ion-accordion {
+        ion-item {
+          height: 50px;
+        }
+      }
+    }
   }
 
   #chain-panel {

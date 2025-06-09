@@ -13,20 +13,10 @@
         [cdkDropListSortingDisabled]="true"
         (cdkDropListDropped)="drop($event)"
       >
-        <!-- @for(link of Links; track $index) {
-        <app-link-item
-          cdkDrag
-          [cdkDragData]="link"
-          class="no-text-select"
-          [Link]="link"
-          (dblclick)="OnLinkItemDoubleClick($event, link)"
-        ></app-link-item>
-        } -->
-
         @for (category of LinkCategories(); track $index) {
         <ion-accordion-group value="category">
           <ion-accordion value="category">
-            <ion-item slot="header" color="secondary">
+            <ion-item slot="header" color="secondary" lines="none">
               <ion-label>{{category}}</ion-label>
             </ion-item>
             <div class="" slot="content">

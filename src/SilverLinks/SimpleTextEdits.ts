@@ -43,6 +43,7 @@ export class ToUpperCaseLink implements SilverLink {
   public Parse(Input: string): string {
     let result = Input.toLocaleUpperCase();
     this.Output.set(result);
+
     return result;
   }
 
@@ -64,13 +65,13 @@ export class TrimTextLink implements SilverLink {
   public HasSettings: boolean = true;
   public ShowSettings = signal<boolean>(true);
 
-  public Settings: { PerLineTrim: boolean } = { PerLineTrim: true };
+  public Settings: { PerLineTrim: boolean } = { PerLineTrim: false };
   public SettingsFormOptions = undefined;
   public SettingsForm: FormlyFieldConfig[] = [
     {
       key: 'PerLineTrim',
       type: 'checkbox',
-      defaultValue: true,
+      defaultValue: false,
       props: {
         label: 'Trim By Line?',
         required: false,
@@ -82,6 +83,11 @@ export class TrimTextLink implements SilverLink {
     if (!this.Settings.PerLineTrim) {
       return Input.trim();
     }
+
+    if (Input === '') {
+      return '';
+    }
+
     let lines = Input.split('\n');
     let output = '';
     for (let line of lines) {
