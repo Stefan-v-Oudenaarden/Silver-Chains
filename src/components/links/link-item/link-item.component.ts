@@ -1,12 +1,12 @@
-import { Component, computed, effect, input, linkedSignal, OnInit, output, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, computed, effect, input, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { IonButton, IonButtons, IonIcon, IonLabel, IonItem } from '@ionic/angular/standalone';
+import { IonButton, IonButtons, IonIcon, IonItem, IonLabel } from '@ionic/angular/standalone';
 import { FormlyFieldConfig, FormlyForm, FormlyFormOptions } from '@ngx-formly/core';
 import { NgxTooltip } from '@ngx-popovers/tooltip';
 import { addIcons } from 'ionicons';
 import { chevronDownSharp, chevronUpSharp, eyeOffSharp, eyeSharp, trashSharp } from 'ionicons/icons';
-import { debounce, debounceTime, distinct, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { GetCssVariableFromDocument } from 'src/app/helpers';
 import { SilverLink } from 'src/services/links.service';

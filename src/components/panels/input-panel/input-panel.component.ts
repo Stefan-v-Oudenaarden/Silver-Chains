@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { IonTextarea, IonIcon, IonButton, IonButtons, IonSpinner } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { copySharp, enterSharp, trashSharp } from 'ionicons/icons';
+import { SilverLinkData } from 'src/services/links.service';
 import { ToastService } from 'src/services/toast.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { ToastService } from 'src/services/toast.service';
 })
 export class InputPanelComponent implements OnInit {
   //Component IO
-  public UserInput = output<string>();
+  public UserInput = output<SilverLinkData>();
 
   //Services
   private ToastService = inject(ToastService);
@@ -28,6 +29,11 @@ export class InputPanelComponent implements OnInit {
 
   ngOnInit() {}
 
+  public PushUserInput(input: string) {
+    console.log('input', input);
+    this.UserInput.emit(new SilverLinkData(input));
+  }
+
   public onTextAreaInput(event: any) {
     const input = event.detail.value;
 
@@ -35,12 +41,11 @@ export class InputPanelComponent implements OnInit {
       return;
     }
 
-    this.UserInput.emit(input);
+    this.PushUserInput(input);
   }
 
   public EmptyInput() {
     this.InputValue.set('');
-    this.UserInput.emit('');
   }
 
   public async CopyText() {
@@ -83,7 +88,7 @@ export class InputPanelComponent implements OnInit {
       const content = await this.readFileAsText(file);
 
       this.InputValue.set(content);
-      this.UserInput.emit(this.InputValue());
+      this.PushUserInput(this.InputValue());
 
       this.ToastService.showSuccessToast('Loaded file.');
     } catch (err) {

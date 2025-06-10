@@ -3,6 +3,24 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/SimpleTextEdits';
 import { BeeMovieLink } from 'src/SilverLinks/StaticTextLinks';
 
+export type SilverLinkTextElement = {
+  Text?: string;
+  Information?: string;
+};
+
+export class SilverLinkData {
+  public TextData: SilverLinkTextElement[];
+
+  constructor(input: string | undefined = undefined) {
+    if (input === undefined) {
+      this.TextData = [];
+      return;
+    } else {
+      this.TextData = [{ Text: input }];
+    }
+  }
+}
+
 export interface SilverLink {
   Name: string;
   Description: string;
@@ -10,7 +28,7 @@ export interface SilverLink {
   Id: string;
 
   Error: WritableSignal<boolean>;
-  Output: WritableSignal<string>;
+  Output: WritableSignal<SilverLinkData>;
   Disabled: WritableSignal<boolean>;
 
   HasSettings: boolean;
@@ -20,7 +38,7 @@ export interface SilverLink {
   SettingsForm?: FormlyFieldConfig[];
   SettingsFormOptions?: FormlyFormOptions;
 
-  Parse(Input: string): string;
+  Run(Input: SilverLinkData): SilverLinkData;
   New(): SilverLink;
 }
 

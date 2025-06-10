@@ -1,7 +1,8 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, computed, input, OnInit } from '@angular/core';
 import { IonTextarea, IonButton, IonButtons, IonSpinner, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { copySharp, exitSharp } from 'ionicons/icons';
+import { SilverLinkData } from 'src/services/links.service';
 
 @Component({
   selector: 'app-output-panel',
@@ -10,7 +11,21 @@ import { copySharp, exitSharp } from 'ionicons/icons';
   imports: [IonIcon, IonButtons, IonButton, IonTextarea],
 })
 export class OutputPanelComponent implements OnInit {
-  public SilverChainOutput = input<string>();
+  public SilverChainOutput = input<SilverLinkData>();
+  public DisplayOutput = computed(() => {
+    const data = this.SilverChainOutput();
+    if (!data || !data.TextData || data.TextData.length == 0) {
+      return '';
+    }
+
+    for (const element of data.TextData) {
+      if (element.Text !== undefined) {
+        return element.Text;
+      }
+    }
+
+    return '';
+  });
 
   constructor() {
     addIcons({ copySharp, exitSharp });
@@ -20,7 +35,7 @@ export class OutputPanelComponent implements OnInit {
 
   public async CopyText() {
     try {
-      await navigator.clipboard.writeText(this.SilverChainOutput() || '');
+      await navigator.clipboard.writeText(this.DisplayOutput() || '');
     } catch (error: any) {
       console.error(error.message);
     }
@@ -34,7 +49,7 @@ export class OutputPanelComponent implements OnInit {
       return;
     }
 
-    const content = this.SilverChainOutput() || '';
+    const content = this.DisplayOutput() || '';
 
     const blob = new Blob([content], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);

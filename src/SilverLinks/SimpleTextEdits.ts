@@ -1,73 +1,45 @@
-import { input, signal, Signal } from '@angular/core';
-import { FormlyFieldConfig, FormlyFieldProps, FormlyFormOptions } from '@ngx-formly/core';
+import { signal } from '@angular/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink } from 'src/services/links.service';
-import { v4 as uuidv4 } from 'uuid';
+import { BasicSilverLink } from './BaseLinkImplementation';
 
-export class ToLowerCaseLink implements SilverLink {
-  public Error = signal<boolean>(false);
-  public Output = signal<string>('');
-  public Disabled = signal<boolean>(false);
+export class ToLowerCaseLink extends BasicSilverLink {
+  override Name = 'To Lower Case';
+  override Category = 'Transformation';
+  override Description = `Converts text into lower case. \n Input: A sentence with SOME Upper Case letters. \n Output: a sentence with some upper case letters.`;
 
-  public Id: string = uuidv4();
-  public Name: string = 'To Lower Case';
-  public Category: string = 'Transformation';
-  public Description: string = `Converts text into lower case. \n Input: A sentence with SOME Upper Case letters. \n Output: a sentence with some upper case letters.`;
-
-  public HasSettings: boolean = false;
-  public ShowSettings = signal<boolean>(false);
-
-  public Parse(Input: string): string {
-    let result = Input.toLocaleLowerCase();
-    this.Output.set(result);
-    return result;
+  public override PerTextOperation(Text: string): string {
+    return Text.toLocaleLowerCase();
   }
-
-  public New(): SilverLink {
+  public override New(): SilverLink {
     return new ToLowerCaseLink();
   }
 }
 
-export class ToUpperCaseLink implements SilverLink {
-  public Error = signal<boolean>(false);
-  public Output = signal<string>('');
-  public Disabled = signal<boolean>(false);
+export class ToUpperCaseLink extends BasicSilverLink {
+  override Name = 'To Upper Case';
+  override Category = 'Transformation';
+  override Description = `Converts text into upper case. \n Input: A sentence with SOME Upper Case letters. \n Output: A SENTENCE WITH SOME UPPER CASE LETTERS.`;
 
-  public Id: string = uuidv4();
-  public Name: string = 'To Upper Case';
-  public Category: string = 'Transformation';
-  public Description: string = `Converts text into upper case. \n Input: A sentence with SOME Upper Case letters. \n Output: A SENTENCE WITH SOME UPPER CASE LETTERS.`;
-
-  public HasSettings: boolean = false;
-  public ShowSettings = signal<boolean>(false);
-
-  public Parse(Input: string): string {
-    let result = Input.toLocaleUpperCase();
-    this.Output.set(result);
-
-    return result;
+  public override PerTextOperation(Text: string): string {
+    return Text.toLocaleUpperCase();
   }
-
-  public New(): SilverLink {
+  public override New(): SilverLink {
     return new ToUpperCaseLink();
   }
 }
 
-export class TrimTextLink implements SilverLink {
-  public Error = signal<boolean>(false);
-  public Output = signal<string>('');
-  public Disabled = signal<boolean>(false);
+export class TrimTextLink extends BasicSilverLink {
+  override Name = 'Trim Whitespace';
+  override Category = 'Transformation';
+  override Description = `Removes extra whitespace around the text to "clean" it.`;
 
-  public Id: string = uuidv4();
-  public Name: string = 'Trim Whitespace';
-  public Category: string = 'Transformation';
-  public Description: string = `Removes extra whitespace around the text to "clean" it.`;
+  override HasSettings = true;
+  override ShowSettings = signal<boolean>(false);
 
-  public HasSettings: boolean = true;
-  public ShowSettings = signal<boolean>(false);
-
-  public Settings: { PerLineTrim: boolean } = { PerLineTrim: false };
-  public SettingsFormOptions = undefined;
-  public SettingsForm: FormlyFieldConfig[] = [
+  override Settings: { PerLineTrim: boolean } = { PerLineTrim: false };
+  override SettingsFormOptions = undefined;
+  override SettingsForm: FormlyFieldConfig[] = [
     {
       key: 'PerLineTrim',
       type: 'checkbox',
@@ -79,31 +51,30 @@ export class TrimTextLink implements SilverLink {
     },
   ];
 
-  public Parse(Input: string): string {
+  public override PerTextOperation(Text: string): string {
     if (!this.Settings.PerLineTrim) {
-      return Input.trim();
+      return Text.trim();
     }
 
-    if (Input === '') {
+    if (Text === '') {
       return '';
     }
 
-    let lines = Input.split('\n');
-    let output = '';
+    let lines = Text.split('\n');
+    let trimmedText = '';
     for (let line of lines) {
       if (/\S/.test(line)) {
         // Line contains non-whitespace characters, trim it
-        output += line.trim() + '\n';
+        trimmedText += line.trim() + '\n';
       } else {
         // Line is wholly whitespace, keep it as-is
-        output += line + '\n';
+        trimmedText += line + '\n';
       }
     }
-    this.Output.set(output);
-    return output;
-  }
 
-  public New(): SilverLink {
+    return trimmedText;
+  }
+  public override New(): SilverLink {
     return new TrimTextLink();
   }
 }

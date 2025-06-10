@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { SplitAreaComponent, SplitComponent } from 'angular-split';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
-import { LinksService, SilverLink } from 'src/services/links.service';
+import { LinksService, SilverLink, SilverLinkData } from 'src/services/links.service';
 import { LinkChainService } from 'src/services/linkchain.service';
 import { InputPanelComponent } from '../../components/panels/input-panel/input-panel.component';
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
@@ -35,8 +35,8 @@ export class HomePage {
   private LinksService = inject(LinksService);
   private LinkChainService = inject(LinkChainService);
 
-  public UserInput = signal<string>('');
-  public SilverChainOutput = signal<string>('');
+  public UserInput = signal<SilverLinkData>(new SilverLinkData(''));
+  public SilverChainOutput = signal<SilverLinkData>(new SilverLinkData(''));
   public AllChainLinksSettingsShow = signal<boolean>(false);
 
   public LinkChain = this.LinkChainService.LinkChain;
@@ -98,7 +98,7 @@ export class HomePage {
     this.RunSilverLinkChain();
   }
 
-  OnUserInput(input: string) {
+  OnUserInput(input: SilverLinkData) {
     this.UserInput.set(input);
     this.RunSilverLinkChain();
   }

@@ -1,24 +1,19 @@
-import { input, signal, Signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink } from 'src/services/links.service';
-import { v4 as uuidv4 } from 'uuid';
+import { BasicSilverLink } from './BaseLinkImplementation';
 
-export class BeeMovieLink implements SilverLink {
-  public Error = signal<boolean>(false);
-  public Output = signal<string>('');
-  public Disabled = signal<boolean>(false);
+export class BeeMovieLink extends BasicSilverLink {
+  override Name = 'Bee Movie';
+  override Category = 'Generation';
+  override Description = `Replaces the text with the first 15 lines of the Bee movie script. \n Can optionally append the script instead.`;
 
-  public Id: string = uuidv4();
-  public Name: string = 'Bee Movie';
-  public Category: string = 'Generation';
-  public Description: string = `Replaces the text with the first 15 lines of the Bee movie script. \n Can optionally append the script instead.`;
+  override HasSettings = true;
+  override ShowSettings = signal<boolean>(false);
 
-  public HasSettings: boolean = true;
-  public ShowSettings = signal<boolean>(false);
-
-  public Settings: { Append: boolean } = { Append: false };
-  public SettingsFormOptions = undefined;
-  public SettingsForm: FormlyFieldConfig[] = [
+  override Settings: { Append: boolean } = { Append: false };
+  override SettingsFormOptions = undefined;
+  override SettingsForm: FormlyFieldConfig[] = [
     {
       key: 'Append',
       type: 'checkbox',
@@ -30,8 +25,7 @@ export class BeeMovieLink implements SilverLink {
     },
   ];
 
-  public Parse(Input: string): string {
-    let result = `According to all known laws of aviation, there is no way a bee should be able to fly.
+  private BeeMovie = `According to all known laws of aviation, there is no way a bee should be able to fly.
 Its wings are too small to get its fat little body off the ground.
 The bee, of course, flies anyway because bees don't care what humans think is impossible.
 Yellow, black. Yellow, black. Yellow, black. Yellow, black.
@@ -57,15 +51,14 @@ Ma! I got a thing going here.
 You got lint on your fuzz.
 Ow! That's me!`;
 
+  public override PerTextOperation(Text: string): string {
     if (this.Settings.Append) {
-      return `${Input}\n${result}`.trim();
+      return Text + '\n' + this.BeeMovie;
+    } else {
+      return this.BeeMovie;
     }
-
-    this.Output.set(result);
-    return result;
   }
-
-  public New(): SilverLink {
+  public override New(): SilverLink {
     return new BeeMovieLink();
   }
 }
