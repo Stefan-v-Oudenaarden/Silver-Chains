@@ -15,26 +15,26 @@
       @if(Link().HasSettings) {
       <ion-button (click)="ToggleSettings($event)">
         @if(this.Link().ShowSettings()) {
-        <ion-icon name="chevron-up-sharp"></ion-icon>
+        <ion-icon slot="icon-only" name="chevron-up-sharp"></ion-icon>
         }@else{
-        <ion-icon name="chevron-down-sharp"></ion-icon>
+        <ion-icon slot="icon-only" name="chevron-down-sharp"></ion-icon>
         }
       </ion-button>
       }
       <ion-button (click)="ToggleLinkActive($event)">
         @if(Link().Disabled()) {
-        <ion-icon name="eye-off-sharp" color="danger"></ion-icon>
+        <ion-icon slot="icon-only" name="eye-off-sharp" color="danger"></ion-icon>
         }@else{
-        <ion-icon name="eye-sharp"></ion-icon>
+        <ion-icon slot="icon-only" name="eye-sharp"></ion-icon>
         }
       </ion-button>
       <ion-button (click)="TrashClick($event)">
-        <ion-icon name="trash-sharp"></ion-icon>
+        <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
       </ion-button>
     </ion-buttons>
     } }
   </div>
-  @if(IsInteractive() && this.Link().ShowSettings()) {
+  @if(IsInteractive() && Link().HasSettings && Link().ShowSettings()) {
   <div class="link-item-settings">
     <formly-form [model]="model" [fields]="fields()" [options]="options"></formly-form>
   </div>

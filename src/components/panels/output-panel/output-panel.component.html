@@ -1,4 +1,12 @@
 <div class="panel-header">
   <h3>Output</h3>
+  <ion-buttons>
+    <ion-button (click)="saveOutputToFile()">
+      <ion-icon slot="icon-only" name="exit-sharp"></ion-icon>
+    </ion-button>
+    <ion-button (click)="CopyText()">
+      <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
+    </ion-button>
+  </ion-buttons>
 </div>
-<ion-textarea placeholder="Enter text" autoGrow="true" [value]="SilverChainOutput()"> </ion-textarea>
+<ion-textarea autoGrow="true" [value]="SilverChainOutput()"> </ion-textarea>

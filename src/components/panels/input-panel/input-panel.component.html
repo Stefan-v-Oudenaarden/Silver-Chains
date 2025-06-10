@@ -1,4 +1,23 @@
 <div class="panel-header">
   <h3>Input</h3>
+
+  <ion-buttons>
+    <ion-button (click)="LoadTextFromFileClick()" [disabled]="LoadingFile()">
+      @if(LoadingFile()) {
+      <ion-spinner></ion-spinner>
+      }@else {
+      <ion-icon slot="icon-only" name="enter-sharp"></ion-icon>
+      }
+    </ion-button>
+    <ion-button (click)="CopyText()">
+      <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
+    </ion-button>
+    <ion-button (click)="EmptyInput()">
+      <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+    </ion-button>
+  </ion-buttons>
 </div>
-<ion-textarea placeholder="Enter text" autoGrow="true" (ionInput)="onTextAreaInput($event)"> </ion-textarea>
+
+<ion-textarea placeholder="Enter text" autoGrow="true" (ionInput)="onTextAreaInput($event)" [(ngModel)]="InputValue"> </ion-textarea>
+
+<input type="file" (change)="onFileSelected($event)" accept="*.*" #fileInput />

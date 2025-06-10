@@ -4,6 +4,7 @@
       <div class="panel-header">
         <h3>Operators</h3>
       </div>
+
       <div
         id="links-panel"
         cdkDropList
@@ -40,6 +41,19 @@
     <as-split-area [size]="40" [minSize]="15" class="hide-overflow">
       <div class="panel-header">
         <h3>Chain</h3>
+
+        <ion-buttons>
+          <ion-button (click)="ToggleShowHideAllLinkSettings()">
+            @if(AllChainLinksSettingsShow()) {
+            <ion-icon slot="icon-only" name="chevron-up-sharp"></ion-icon>
+            }@else{
+            <ion-icon slot="icon-only" name="chevron-down-sharp"></ion-icon>
+            }
+          </ion-button>
+          <ion-button (click)="EmptyLinkChain()">
+            <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </div>
       <div
         id="chain-panel"

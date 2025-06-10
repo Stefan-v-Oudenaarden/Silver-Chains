@@ -63,7 +63,7 @@ export class TrimTextLink implements SilverLink {
   public Description: string = `Removes extra whitespace around the text to "clean" it.`;
 
   public HasSettings: boolean = true;
-  public ShowSettings = signal<boolean>(true);
+  public ShowSettings = signal<boolean>(false);
 
   public Settings: { PerLineTrim: boolean } = { PerLineTrim: false };
   public SettingsFormOptions = undefined;

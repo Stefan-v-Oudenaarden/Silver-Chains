@@ -6,14 +6,18 @@ import { LinkChainService } from 'src/services/linkchain.service';
 import { InputPanelComponent } from '../../components/panels/input-panel/input-panel.component';
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
 import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
-import { link } from 'ionicons/icons';
-import { IonAccordion, IonAccordionGroup, IonItem, IonLabel } from '@ionic/angular/standalone';
+import { trashSharp, chevronDownSharp, chevronUpSharp } from 'ionicons/icons';
+import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [
+    IonIcon,
+    IonButtons,
+    IonButton,
     IonLabel,
     IonItem,
     IonAccordionGroup,
@@ -33,6 +37,7 @@ export class HomePage {
 
   public UserInput = signal<string>('');
   public SilverChainOutput = signal<string>('');
+  public AllChainLinksSettingsShow = signal<boolean>(false);
 
   public LinkChain = this.LinkChainService.LinkChain;
   public Links = this.LinksService.Links;
@@ -51,13 +56,31 @@ export class HomePage {
     return linksByCategory;
   });
 
-  constructor() {}
+  constructor() {
+    addIcons({ trashSharp, chevronDownSharp, chevronUpSharp });
+  }
 
   RunSilverLinkChain() {
     const input = this.UserInput();
     const output = this.LinkChainService.ProcessInput(input);
 
     this.SilverChainOutput.set(output);
+  }
+
+  EmptyLinkChain() {
+    this.LinkChain.set([]);
+    this.RunSilverLinkChain();
+  }
+
+  ToggleShowHideAllLinkSettings() {
+    let currentChain = this.LinkChain();
+    let isShown = this.AllChainLinksSettingsShow();
+
+    for (let link of currentChain) {
+      link.ShowSettings.set(!isShown);
+    }
+
+    this.AllChainLinksSettingsShow.set(!isShown);
   }
 
   OnLinkItemDoubleClick(event: any, link: SilverLink) {
@@ -72,6 +95,7 @@ export class HomePage {
       return item !== link;
     });
     this.LinkChain.set(currentChain);
+    this.RunSilverLinkChain();
   }
 
   OnUserInput(input: string) {
