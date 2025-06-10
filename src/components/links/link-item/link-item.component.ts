@@ -20,6 +20,7 @@ import { TooltipProvider } from '../link-tooltip/link-tooltip.component';
   providers: [TooltipProvider],
   host: {
     '[style.--component-background-color]': 'backgroundColor()',
+    '[style.--component-color]': 'color()',
   },
 })
 export class LinkItemComponent implements OnInit {
@@ -71,6 +72,27 @@ export class LinkItemComponent implements OnInit {
     }
 
     return GetCssVariableFromDocument('ion-color-light-tint');
+  });
+
+  private color = computed(() => {
+    const link = this.Link();
+    if (link === undefined) {
+      return GetCssVariableFromDocument('ion-color-warning-contrast');
+    }
+
+    if (this.IsInteractive()) {
+      if (!link.Disabled()) {
+        if (link.Error()) {
+          return GetCssVariableFromDocument('ion-color-danger-contrast');
+        } else {
+          return GetCssVariableFromDocument('ion-color-success-contrast');
+        }
+      } else {
+        return GetCssVariableFromDocument('ion-color-light-contrast');
+      }
+    }
+
+    return GetCssVariableFromDocument('ion-color-light-contrast');
   });
 
   constructor() {
