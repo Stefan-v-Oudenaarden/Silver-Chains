@@ -9,4 +9,13 @@
     </ion-button>
   </ion-buttons>
 </div>
-<ion-textarea autoGrow="true" [value]="DisplayOutput()"> </ion-textarea>
+
+@if(SingleOutput()) {
+<ion-textarea class="single-output" autoGrow="true" [value]="DisplayOutput()"> </ion-textarea>
+}@else {
+<div class="multi-output-content">
+  @for (output of SilverChainOutput()?.TextData; track $index) { @if(output.Text !== undefined) {
+  <ion-textarea autoGrow="true" [value]="output.Text"> </ion-textarea>
+  } }
+</div>
+}

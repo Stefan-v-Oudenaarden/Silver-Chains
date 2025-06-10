@@ -12,6 +12,17 @@ import { SilverLinkData } from 'src/services/links.service';
 })
 export class OutputPanelComponent implements OnInit {
   public SilverChainOutput = input<SilverLinkData>();
+
+  public SingleOutput = computed(() => {
+    const data = this.SilverChainOutput();
+
+    if (!data || !data.TextData || data.TextData.length == 0) {
+      return false;
+    }
+
+    return data.TextData.length === 1;
+  });
+
   public DisplayOutput = computed(() => {
     const data = this.SilverChainOutput();
     if (!data || !data.TextData || data.TextData.length == 0) {

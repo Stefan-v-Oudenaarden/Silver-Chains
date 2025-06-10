@@ -30,7 +30,6 @@ export class InputPanelComponent implements OnInit {
   ngOnInit() {}
 
   public PushUserInput(input: string) {
-    console.log('input', input);
     this.UserInput.emit(new SilverLinkData(input));
   }
 
