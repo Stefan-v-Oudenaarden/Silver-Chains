@@ -1,6 +1,7 @@
 import { Injectable, Signal, WritableSignal } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/SimpleTextEdits';
+import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/SplittingJoining';
 import { BeeMovieLink } from 'src/SilverLinks/StaticTextLinks';
 
 export type SilverLinkTextElement = {
@@ -46,7 +47,14 @@ export interface SilverLink {
   providedIn: 'root',
 })
 export class LinksService {
-  public Links: SilverLink[] = [new ToUpperCaseLink(), new ToLowerCaseLink(), new TrimTextLink(), new BeeMovieLink()];
+  public Links: SilverLink[] = [
+    new ToUpperCaseLink(),
+    new ToLowerCaseLink(),
+    new TrimTextLink(),
+    new BeeMovieLink(),
+    new SplitTextLink(),
+    new JoinTextLink(),
+  ];
 
   constructor() {}
 }
