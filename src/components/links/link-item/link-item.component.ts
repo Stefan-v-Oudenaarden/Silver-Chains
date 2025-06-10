@@ -3,18 +3,21 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { IonButton, IonButtons, IonIcon, IonLabel, IonItem } from '@ionic/angular/standalone';
 import { FormlyFieldConfig, FormlyForm, FormlyFormOptions } from '@ngx-formly/core';
+import { NgxTooltip } from '@ngx-popovers/tooltip';
 import { addIcons } from 'ionicons';
 import { chevronDownSharp, chevronUpSharp, eyeOffSharp, eyeSharp, trashSharp } from 'ionicons/icons';
 import { debounce, debounceTime, distinct, distinctUntilChanged } from 'rxjs';
 
 import { GetCssVariableFromDocument } from 'src/app/helpers';
 import { SilverLink } from 'src/services/links.service';
+import { TooltipProvider } from '../link-tooltip/link-tooltip.component';
 
 @Component({
   selector: 'app-link-item',
   templateUrl: './link-item.component.html',
   styleUrls: ['./link-item.component.scss'],
-  imports: [IonItem, IonLabel, IonIcon, IonButton, IonButtons, FormlyForm],
+  imports: [IonItem, IonLabel, IonIcon, IonButton, IonButtons, FormlyForm, NgxTooltip],
+  providers: [TooltipProvider],
   host: {
     '[style.--component-background-color]': 'backgroundColor()',
   },

@@ -31,6 +31,8 @@
     "@ionic/angular": "^8.0.0",
     "@ngx-formly/bootstrap": "^7.0.0-next.0",
     "@ngx-formly/core": "^7.0.0-next.0",
+    "@ngx-popovers/core": "^19.0.0",
+    "@ngx-popovers/tooltip": "^19.0.0",
     "angular-split": "^19.0.0",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",

@@ -11,7 +11,7 @@ export class ToLowerCaseLink implements SilverLink {
   public Id: string = uuidv4();
   public Name: string = 'To Lower Case';
   public Category: string = 'Transformation';
-  public Description: string = 'Turns the input into lower case.';
+  public Description: string = `Converts text into lower case. \n Input: A sentence with SOME Upper Case letters. \n Output: a sentence with some upper case letters.`;
 
   public HasSettings: boolean = false;
   public ShowSettings = signal<boolean>(false);
@@ -35,7 +35,7 @@ export class ToUpperCaseLink implements SilverLink {
   public Id: string = uuidv4();
   public Name: string = 'To Upper Case';
   public Category: string = 'Transformation';
-  public Description: string = 'Turns the input into ALLCAPS.';
+  public Description: string = `Converts text into upper case. \n Input: A sentence with SOME Upper Case letters. \n Output: A SENTENCE WITH SOME UPPER CASE LETTERS.`;
 
   public HasSettings: boolean = false;
   public ShowSettings = signal<boolean>(false);
@@ -60,7 +60,7 @@ export class TrimTextLink implements SilverLink {
   public Id: string = uuidv4();
   public Name: string = 'Trim Whitespace';
   public Category: string = 'Transformation';
-  public Description: string = 'Trim Whitespace';
+  public Description: string = `Removes extra whitespace around the text to "clean" it.`;
 
   public HasSettings: boolean = true;
   public ShowSettings = signal<boolean>(true);

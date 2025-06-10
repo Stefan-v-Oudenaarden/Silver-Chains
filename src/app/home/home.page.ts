@@ -51,10 +51,7 @@ export class HomePage {
     return linksByCategory;
   });
 
-  constructor() {
-    this.RunSilverLinkChain();
-    console.log(this.LinksByCategory());
-  }
+  constructor() {}
 
   RunSilverLinkChain() {
     const input = this.UserInput();

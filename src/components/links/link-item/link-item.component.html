@@ -1,4 +1,4 @@
-<div class="link-item">
+<div class="link-item" [ngxTooltip]="Link().Description" placement="right-end" arrow [tooltipDisabled]="IsInteractive()">
   <div class="link-item-header">
     @if(Link() === undefined) {
     <ion-item slot="header" color="secondary">
@@ -9,7 +9,6 @@
     <ion-item slot="header" lines="none">
       <ion-label (dblclick)="TrashClick($event)">{{ Link().Name }}</ion-label>
     </ion-item>
-    <!-- <h4 (dblclick)="TrashClick($event)">{{ Link().Name }}</h4> -->
 
     @if(IsInteractive()) {
     <ion-buttons>

@@ -11,7 +11,7 @@ export class BeeMovieLink implements SilverLink {
   public Id: string = uuidv4();
   public Name: string = 'Bee Movie';
   public Category: string = 'Generation';
-  public Description: string = 'The first 500 characters of the bee movie script';
+  public Description: string = `Replaces the text with the first 15 lines of the Bee movie script. \n Can optionally append the script instead.`;
 
   public HasSettings: boolean = true;
   public ShowSettings = signal<boolean>(false);

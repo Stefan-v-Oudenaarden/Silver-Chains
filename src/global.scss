@@ -37,3 +37,17 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/*
+ * Bit of a hack to colour the ngx-popover tooltip arrow.
+ * it supports creating a custom element but that feels like overkill just to apply a colour to the arrow.
+ */
+:root {
+  --tooltip-arrow-color: var(--ion-color-light-shade);
+}
+
+.ng-star-inserted {
+  .arrow {
+    background-color: var(--tooltip-arrow-color, black) !important;
+  }
+}
