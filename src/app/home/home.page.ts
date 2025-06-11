@@ -9,7 +9,8 @@ import { LinkItemComponent } from '../../components/links/link-item/link-item.co
 import { trashSharp, chevronDownSharp, chevronUpSharp } from 'ionicons/icons';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { OutputTestLink } from 'src/SilverLinks/OutputTestLink';
+import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
+import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
 
 @Component({
   selector: 'app-home',
@@ -43,8 +44,17 @@ export class HomePage {
   public LinkChain = this.LinkChainService.LinkChain;
   public Links = this.LinksService.Links;
 
+  public CategoriesDefaultState: Map<string, boolean> = new Map<string, boolean>([
+    ['Generation', false],
+    ['Transformation', true],
+    ['Splitting & Joining', false],
+    ['Output', false],
+  ]);
+
   public LinkCategories = computed(() => {
-    return new Set(this.Links.map((link) => link.Category));
+    let staticSet = new Set(this.CategoriesDefaultState.keys());
+    let liveset = new Set(this.Links.map((link) => link.Category));
+    return new Set([...staticSet, ...liveset]);
   });
 
   public LinksByCategory = computed(() => {
@@ -58,6 +68,7 @@ export class HomePage {
   });
 
   constructor() {
+    //this.LinkChain().push(new LorempIpsumLink());
     addIcons({ trashSharp, chevronDownSharp, chevronUpSharp });
   }
 

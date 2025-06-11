@@ -11,6 +11,11 @@ export class LinkChainService {
 
   public ProcessInput(Input: SilverLinkData): SilverLinkData {
     let output = Input;
+
+    if (this.LinkChain().length === 0) {
+      return Input;
+    }
+
     for (let silverLink of this.LinkChain()) {
       if (!silverLink.Disabled()) {
         output = silverLink.Run(output);

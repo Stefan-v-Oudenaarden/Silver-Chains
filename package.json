@@ -35,6 +35,7 @@
     "@ngx-popovers/tooltip": "^19.0.0",
     "angular-split": "^19.0.0",
     "ionicons": "^7.0.0",
+    "lorem-ipsum": "^2.0.8",
     "marked": "^15.0.12",
     "ngx-json-viewer": "^3.2.1",
     "ngx-markdown": "^20.0.0",

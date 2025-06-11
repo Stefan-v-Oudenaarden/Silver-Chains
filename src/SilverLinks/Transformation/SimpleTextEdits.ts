@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink } from 'src/services/links.service';
-import { BasicSilverLink } from './BaseLinkImplementation';
+import { BasicSilverLink } from '../BaseLinkImplementation';
 
 export class ToLowerCaseLink extends BasicSilverLink {
   override Name = 'To Lower Case';

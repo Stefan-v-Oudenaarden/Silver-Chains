@@ -42,7 +42,7 @@ export class LinkItemComponent implements OnInit {
   private providedFields = signal<FormlyFieldConfig[]>([]);
   //Best supported way i found to get callbacks from Formly on value changes. For live updating the output.
   public fields = computed(() => {
-    return this.providedFields().map((field) => {
+    let newFields = this.providedFields().map((field) => {
       if (field && field.props) {
         field.props.keydown = () => setTimeout(() => this.modelValue.set(JSON.stringify(this.model)));
         field.props.change = () => setTimeout(() => this.modelValue.set(JSON.stringify(this.model)));
@@ -50,6 +50,19 @@ export class LinkItemComponent implements OnInit {
 
       return field;
     });
+
+    for (let field of newFields) {
+      if (field.fieldGroup && field.fieldGroup) {
+        for (let fieldGroupField of field.fieldGroup) {
+          if (fieldGroupField.props) {
+            fieldGroupField.props.keydown = () => setTimeout(() => this.modelValue.set(JSON.stringify(this.model)));
+            fieldGroupField.props.change = () => setTimeout(() => this.modelValue.set(JSON.stringify(this.model)));
+          }
+        }
+      }
+    }
+
+    return newFields;
   });
 
   //CSS Variables

@@ -51,3 +51,48 @@
     background-color: var(--tooltip-arrow-color, black) !important;
   }
 }
+
+/*
+* Formly Css Helpers
+*/
+
+.formly-display-flex {
+  display: flex;
+}
+
+.formly-flex-1 {
+  flex: 1;
+}
+
+.formly-flex-2 {
+  flex: 2;
+}
+
+.formly-flex-3 {
+  flex: 3;
+}
+
+.formly-flex-4 {
+  flex: 4;
+}
+
+.formly-flex-5 {
+  flex: 5;
+}
+
+.formly-flex-6 {
+  flex: 6;
+}
+
+[class*='formly-flex-'] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+[class*='formly-flex-']:first-child {
+  padding-left: 0;
+}
+
+[class*='formly-flex-']:nth-last-child(2) {
+  padding-right: 0;
+}

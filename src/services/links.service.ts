@@ -2,10 +2,14 @@ import { Injectable, isDevMode, Signal, WritableSignal } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { SimpleTableData } from 'src/components/simple-table/simple-table.component';
 
-import { OutputTestLink } from 'src/SilverLinks/OutputTestLink';
-import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/SimpleTextEdits';
-import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/SplittingJoining';
-import { BeeMovieLink } from 'src/SilverLinks/StaticTextLinks';
+import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
+import { BeeMovieLink } from 'src/SilverLinks/Generation/BeeMovieLink';
+import { AsHtmlLink } from 'src/SilverLinks/Parsing/ASHtmlLink';
+import { AsJsonLink } from 'src/SilverLinks/Parsing/AsJsonLink';
+import { AsMarkdownLink } from 'src/SilverLinks/Parsing/AsMarkdownLink';
+import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/Splitting&Joining/SplittingJoining';
+import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/Transformation/SimpleTextEdits';
+import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
 
 export type SilverLinkTextElement = {
   Text?: string;
@@ -56,12 +60,23 @@ export interface SilverLink {
 })
 export class LinksService {
   public Links: SilverLink[] = [
+    //Generation
+    new BeeMovieLink(),
+    new LorempIpsumLink(),
+
+    //Parsing
+    new AsMarkdownLink(),
+    new AsJsonLink(),
+    new AsHtmlLink(),
+
+    //Splitting & Joining
+    new SplitTextLink(),
+    new JoinTextLink(),
+
+    //Transformation
     new ToUpperCaseLink(),
     new ToLowerCaseLink(),
     new TrimTextLink(),
-    new BeeMovieLink(),
-    new SplitTextLink(),
-    new JoinTextLink(),
   ];
 
   constructor() {

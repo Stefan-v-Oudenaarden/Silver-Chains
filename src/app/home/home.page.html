@@ -15,8 +15,8 @@
         (cdkDropListDropped)="drop($event)"
       >
         @for (category of LinkCategories(); track $index) {
-        <ion-accordion-group value="category">
-          <ion-accordion value="category">
+        <ion-accordion-group [value]="category">
+          <ion-accordion [value]="CategoriesDefaultState.get(category) ? category : false">
             <ion-item slot="header" color="secondary" lines="none">
               <ion-label>{{category}}</ion-label>
             </ion-item>

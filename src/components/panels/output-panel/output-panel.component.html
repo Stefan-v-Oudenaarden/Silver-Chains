@@ -21,19 +21,19 @@
     } @if(output.Image !== undefined) {
     <img [src]="output.Image" />
     } @if(output.HTMLString !== undefined) {
-    <div class="html-container">
+    <div class="output-container">
       <div [innerHTML]="ConvertSafeHtml(output.HTMLString)"></div>
     </div>
     } @if(output.Markdown !== undefined) {
-    <div class="markdown-container">
+    <div class="output-container">
       <markdown>{{ output.Markdown }}</markdown>
     </div>
     } @if(output.Object !== undefined) {
-    <div class="json-container">
+    <div class="output-container">
       <ngx-json-viewer [json]="output.Object" [depth]="1"></ngx-json-viewer>
     </div>
     } @if(output.Table !== undefined) {
-    <div class="json-container">
+    <div class="output-container">
       <app-simple-table [TableData]="output.Table"></app-simple-table>
     </div>
     }

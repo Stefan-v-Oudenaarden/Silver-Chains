@@ -1,9 +1,10 @@
 import { signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { SilverLink } from 'src/services/links.service';
-import { BasicSilverLink } from './BaseLinkImplementation';
+import { SilverLink, SilverLinkData } from 'src/services/links.service';
+import { BasicSilverLink } from '../BaseLinkImplementation';
+import { CustomSilverLink } from '../CustomSilverLinks';
 
-export class BeeMovieLink extends BasicSilverLink {
+export class BeeMovieLink extends CustomSilverLink {
   override Name = 'Bee Movie';
   override Category = 'Generation';
   override Description = `Replaces the text with the first 15 lines of the Bee movie script. \n Can optionally append the script instead.`;
@@ -51,12 +52,8 @@ Ma! I got a thing going here.
 You got lint on your fuzz.
 Ow! That's me!`;
 
-  public override PerTextOperation(Text: string): string {
-    if (this.Settings.Append) {
-      return Text + '\n' + this.BeeMovie;
-    } else {
-      return this.BeeMovie;
-    }
+  public override Run(Input: SilverLinkData): SilverLinkData {
+    return new SilverLinkData(this.BeeMovie);
   }
   public override New(): SilverLink {
     return new BeeMovieLink();
