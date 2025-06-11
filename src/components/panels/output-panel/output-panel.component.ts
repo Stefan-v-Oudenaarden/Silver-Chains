@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnInit, viewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IonButton, IonButtons, IonIcon, IonTextarea } from '@ionic/angular/standalone';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -6,6 +6,9 @@ import { addIcons } from 'ionicons';
 import { copySharp, exitSharp } from 'ionicons/icons';
 import { SilverLinkData } from 'src/services/links.service';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+
 import { SimpleTableComponent } from 'src/components/simple-table/simple-table.component';
 
 @Component({
@@ -19,7 +22,9 @@ export class OutputPanelComponent implements OnInit {
 
   public DomSanitizer = inject(DomSanitizer);
 
-  public SingleOutput = computed(() => {
+  public exportElement = viewChild<ElementRef<HTMLDivElement>>('outputElement');
+
+  public IsSimpleTextOutput = computed(() => {
     const data = this.SilverChainOutput();
 
     if (!data || !data.TextData || data.TextData.length == 0) {
@@ -31,7 +36,7 @@ export class OutputPanelComponent implements OnInit {
     return data.TextData.length === 1 && dataTypes.length == 1 && dataTypes.includes('Text');
   });
 
-  public DisplayOutput = computed(() => {
+  public TextOutput = computed(() => {
     const data = this.SilverChainOutput();
     if (!data || !data.TextData || data.TextData.length == 0) {
       return '';
@@ -54,23 +59,30 @@ export class OutputPanelComponent implements OnInit {
 
   public async CopyText() {
     try {
-      await navigator.clipboard.writeText(this.DisplayOutput() || '');
+      await navigator.clipboard.writeText(this.TextOutput() || '');
     } catch (error: any) {
       console.error(error.message);
     }
   }
 
   public async saveOutputToFile() {
-    const suggestedFilename = this.generateFilenameWithDateTime('silver chains');
+    let extension = 'txt';
+
+    const suggestedFilename = this.generateFilenameWithDateTime('silver chains', extension);
     let fileName = prompt('Enter filename:', suggestedFilename);
 
     if (!fileName) {
       return;
     }
 
-    const content = this.DisplayOutput() || '';
+    let blob: Blob;
 
-    const blob = new Blob([content], { type: 'text/plain' });
+    if (this.IsSimpleTextOutput()) {
+      blob = this.ExportAsTextOutput();
+    } else {
+      blob = this.ExportComplexTextOutout();
+    }
+
     const url = window.URL.createObjectURL(blob);
 
     const link = document.createElement('a');
@@ -82,7 +94,22 @@ export class OutputPanelComponent implements OnInit {
     link.remove();
   }
 
-  private generateFilenameWithDateTime(baseName: string): string {
+  private ExportAsTextOutput(): Blob {
+    const content = this.TextOutput() || '';
+
+    return new Blob([content], { type: 'text/plain' });
+  }
+
+  private ExportComplexTextOutout(): Blob {
+    const element = document.getElementById('multi-output-content');
+    if (element) {
+      return new Blob([element.textContent || ''], { type: 'text/plain' });
+    }
+
+    return new Blob([''], { type: 'text/plain' });
+  }
+
+  private generateFilenameWithDateTime(baseName: string, extension: string = '.text'): string {
     const now = new Date();
     const day = now.getDate().toString().padStart(2, '0');
     const month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -90,7 +117,7 @@ export class OutputPanelComponent implements OnInit {
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
 
-    return `${baseName} ${day}-${month}-${year} ${hours}-${minutes}.txt`;
+    return `${baseName} ${day}-${month}-${year} ${hours}-${minutes}.${extension}`;
   }
 
   public ConvertSafeHtml(htmlString: string): SafeHtml {

@@ -38,7 +38,7 @@
       </div>
     </as-split-area>
 
-    <as-split-area [size]="40" [minSize]="15" class="hide-overflow">
+    <as-split-area [size]="30" [minSize]="15" class="hide-overflow">
       <div class="panel-header">
         <h3>Chain</h3>
 
@@ -77,16 +77,16 @@
       </div>
     </as-split-area>
 
-    <as-split-area [size]="40" [minSize]="15">
+    <as-split-area [size]="50" [minSize]="15">
       <div id="io-panel">
         <as-split direction="vertical" [gutterSize]="3">
-          <as-split-area [size]="50" [minSize]="15" class="hide-overflow">
+          <as-split-area [size]="40" [minSize]="15" class="hide-overflow">
             <div id="input-panel">
               <app-input-panel (UserInput)="OnUserInput($event)"></app-input-panel>
             </div>
           </as-split-area>
 
-          <as-split-area [size]="50" [minSize]="15" class="hide-overflow">
+          <as-split-area [size]="60" [minSize]="15" class="hide-overflow">
             <div id="output-panel">
               <app-output-panel [SilverChainOutput]="SilverChainOutput()"></app-output-panel>
             </div>
