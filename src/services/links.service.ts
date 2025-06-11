@@ -10,6 +10,7 @@ import { AsMarkdownLink } from 'src/SilverLinks/Parsing/AsMarkdownLink';
 import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/Splitting&Joining/SplittingJoining';
 import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/Transformation/SimpleTextEdits';
 import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
+import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
 
 export type SilverLinkTextElement = {
   Text?: string;
@@ -60,6 +61,9 @@ export interface SilverLink {
 })
 export class LinksService {
   public Links: SilverLink[] = [
+    //Analysis
+    new TextAnalysisLink(),
+
     //Generation
     new BeeMovieLink(),
     new LorempIpsumLink(),

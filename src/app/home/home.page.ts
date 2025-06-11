@@ -11,6 +11,7 @@ import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButto
 import { addIcons } from 'ionicons';
 import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
 import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
+import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
 
 @Component({
   selector: 'app-home',
@@ -68,7 +69,9 @@ export class HomePage {
   });
 
   constructor() {
-    //this.LinkChain().push(new LorempIpsumLink());
+    // this.LinkChain().push(new TextAnalysisLink());
+    // this.RunSilverLinkChain();
+
     addIcons({ trashSharp, chevronDownSharp, chevronUpSharp });
   }
 
