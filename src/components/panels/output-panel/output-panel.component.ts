@@ -6,8 +6,6 @@ import { addIcons } from 'ionicons';
 import { copySharp, exitSharp } from 'ionicons/icons';
 import { SilverLinkData } from 'src/services/links.service';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
 import { SimpleTableComponent } from 'src/components/simple-table/simple-table.component';
 
