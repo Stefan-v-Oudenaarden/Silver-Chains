@@ -55,8 +55,18 @@ You got lint on your fuzz.
 Ow! That's me!`;
 
   public override Run(Input: SilverLinkData): SilverLinkData {
+    if (this.Settings.Append) {
+      let original = '';
+
+      if (Input.TextData.length > 0 && Input.TextData[0].Text !== undefined) {
+        original = Input.TextData[0].Text;
+      }
+      return new SilverLinkData([original, this.BeeMovie].join('\n'));
+    }
+
     return new SilverLinkData(this.BeeMovie);
   }
+
   public override New(): SilverLink {
     return new BeeMovieLink();
   }

@@ -1,4 +1,4 @@
-import { signal } from '@angular/core';
+import { input, signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink, SilverLinkData } from 'src/services/links.service';
 import { BasicSilverLink } from '../BaseLinkImplementation';
@@ -14,18 +14,40 @@ export class LorempIpsumLink extends CustomSilverLink {
   override HasSettings = true;
   override ShowSettings = signal<boolean>(true);
 
-  override Settings: { Static: boolean; Type: string; Amount: number } = { Static: false, Type: 'paragraphs', Amount: 3 };
+  override Settings: { Static: boolean; Append: boolean; Type: string; Amount: number } = {
+    Static: false,
+    Append: false,
+    Type: 'paragraphs',
+    Amount: 3,
+  };
   override SettingsFormOptions = undefined;
   override SettingsForm: FormlyFieldConfig[] = [
     {
-      key: 'Static',
-      type: 'checkbox',
-      defaultValue: true,
-      props: {
-        label: 'Keep the same output',
-        required: false,
-      },
+      fieldGroupClassName: 'formly-display-flex',
+      fieldGroup: [
+        {
+          className: 'formly-flex-1',
+          key: 'Static',
+          type: 'checkbox',
+          defaultValue: true,
+          props: {
+            label: 'Keep the same output',
+            required: false,
+          },
+        },
+        {
+          className: 'formly-flex-1',
+          key: 'Append',
+          type: 'checkbox',
+          defaultValue: false,
+          props: {
+            label: 'Append instead of overwrite?',
+            required: false,
+          },
+        },
+      ],
     },
+
     {
       fieldGroupClassName: 'formly-display-flex',
       fieldGroup: [
@@ -60,13 +82,26 @@ export class LorempIpsumLink extends CustomSilverLink {
 
   private Lorem = new LoremIpsum({});
 
-  private LoremValue?: string = '';
+  private LoremValue?: string = undefined;
+  private LastSettingState?: string = undefined;
 
   public override Run(Input: SilverLinkData): SilverLinkData {
-    if (this.Settings.Static) {
-      if (this.LoremValue) {
-        return new SilverLinkData(this.LoremValue);
+    let original: string | undefined = undefined;
+
+    if (this.Settings.Append) {
+      if (Input.TextData.length > 0 && Input.TextData[0].Text !== undefined) {
+        original = Input.TextData[0].Text;
       }
+    }
+
+    if (this.Settings.Static) {
+      const settingsState = JSON.stringify(this.Settings);
+
+      if (this.LoremValue && settingsState === this.LastSettingState) {
+        return new SilverLinkData([original, this.LoremValue].join('\n'));
+      }
+
+      this.LastSettingState = settingsState;
     }
 
     switch (this.Settings.Type) {
@@ -81,7 +116,7 @@ export class LorempIpsumLink extends CustomSilverLink {
         break;
     }
 
-    return new SilverLinkData(this.LoremValue);
+    return new SilverLinkData([original, this.LoremValue].join('\n'));
   }
   public override New(): SilverLink {
     return new LorempIpsumLink();
