@@ -9,6 +9,7 @@ import { LinkItemComponent } from '../../components/links/link-item/link-item.co
 import { trashSharp, chevronDownSharp, chevronUpSharp } from 'ionicons/icons';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
+import { OutputTestLink } from 'src/SilverLinks/OutputTestLink';
 
 @Component({
   selector: 'app-home',
@@ -57,6 +58,7 @@ export class HomePage {
   });
 
   constructor() {
+    this.LinkChain().push(new OutputTestLink());
     addIcons({ trashSharp, chevronDownSharp, chevronUpSharp });
   }
 

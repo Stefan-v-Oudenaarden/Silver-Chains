@@ -1,0 +1,13 @@
+@if(TableData()) {
+<ion-grid>
+  @for (row of TableData().Rows; track $index) {
+  <ion-row [class]="ToJustificationClass(row.Justification)" [ngClass]="{ 'table-header': row.Header }">
+    @for (col of row.Columns; track $index){
+    <ion-col [size]="col.Size">
+      {{ col.Text }}
+    </ion-col>
+    }
+  </ion-row>
+  }
+</ion-grid>
+}

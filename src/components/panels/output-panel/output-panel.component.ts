@@ -1,17 +1,23 @@
-import { Component, computed, input, OnInit } from '@angular/core';
-import { IonTextarea, IonButton, IonButtons, IonSpinner, IonIcon } from '@ionic/angular/standalone';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { IonButton, IonButtons, IonIcon, IonTextarea } from '@ionic/angular/standalone';
+import { MarkdownComponent } from 'ngx-markdown';
 import { addIcons } from 'ionicons';
 import { copySharp, exitSharp } from 'ionicons/icons';
 import { SilverLinkData } from 'src/services/links.service';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { SimpleTableComponent } from 'src/components/simple-table/simple-table.component';
 
 @Component({
   selector: 'app-output-panel',
   templateUrl: './output-panel.component.html',
   styleUrls: ['./output-panel.component.scss'],
-  imports: [IonIcon, IonButtons, IonButton, IonTextarea],
+  imports: [IonIcon, IonButtons, IonButton, IonTextarea, MarkdownComponent, NgxJsonViewerModule, SimpleTableComponent],
 })
 export class OutputPanelComponent implements OnInit {
   public SilverChainOutput = input<SilverLinkData>();
+
+  public DomSanitizer = inject(DomSanitizer);
 
   public SingleOutput = computed(() => {
     const data = this.SilverChainOutput();
@@ -20,7 +26,9 @@ export class OutputPanelComponent implements OnInit {
       return false;
     }
 
-    return data.TextData.length === 1;
+    const dataTypes = Object.keys(data.TextData[0]);
+
+    return data.TextData.length === 1 && dataTypes.length == 1 && dataTypes.includes('Text');
   });
 
   public DisplayOutput = computed(() => {
@@ -83,5 +91,9 @@ export class OutputPanelComponent implements OnInit {
     const minutes = now.getMinutes().toString().padStart(2, '0');
 
     return `${baseName} ${day}-${month}-${year} ${hours}-${minutes}.txt`;
+  }
+
+  public ConvertSafeHtml(htmlString: string): SafeHtml {
+    return this.DomSanitizer.bypassSecurityTrustHtml(htmlString);
   }
 }

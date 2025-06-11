@@ -39,6 +39,9 @@ export class SplitTextLink implements SilverLink {
         const lines = entry.Text.split('\n');
 
         for (const line of lines) {
+          if (line === '') {
+            continue;
+          }
           output.TextData.push({ Text: line });
         }
       }

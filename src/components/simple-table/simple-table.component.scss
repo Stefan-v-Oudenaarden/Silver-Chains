@@ -1,0 +1,15 @@
+ion-grid {
+  ion-row {
+    ion-col {
+      margin: 3px;
+      border-right: 1px solid var(--ion-color-light-shade);
+    }
+  }
+
+  ion-row.table-header {
+    background-color: var(--ion-color-light-tint);
+    ion-col {
+      font-weight: 700;
+    }
+  }
+}

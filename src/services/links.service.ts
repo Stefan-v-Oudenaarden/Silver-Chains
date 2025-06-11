@@ -1,5 +1,8 @@
-import { Injectable, Signal, WritableSignal } from '@angular/core';
+import { Injectable, isDevMode, Signal, WritableSignal } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { SimpleTableData } from 'src/components/simple-table/simple-table.component';
+
+import { OutputTestLink } from 'src/SilverLinks/OutputTestLink';
 import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/SimpleTextEdits';
 import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/SplittingJoining';
 import { BeeMovieLink } from 'src/SilverLinks/StaticTextLinks';
@@ -7,6 +10,11 @@ import { BeeMovieLink } from 'src/SilverLinks/StaticTextLinks';
 export type SilverLinkTextElement = {
   Text?: string;
   Information?: string;
+  Image?: string;
+  HTMLString?: string;
+  Markdown?: string;
+  Object?: any;
+  Table?: SimpleTableData;
 };
 
 export class SilverLinkData {
@@ -56,5 +64,9 @@ export class LinksService {
     new JoinTextLink(),
   ];
 
-  constructor() {}
+  constructor() {
+    if (isDevMode()) {
+      this.Links.push(new OutputTestLink());
+    }
+  }
 }

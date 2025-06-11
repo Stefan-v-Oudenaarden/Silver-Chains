@@ -14,8 +14,30 @@
 <ion-textarea class="single-output" autoGrow="true" [value]="DisplayOutput()"> </ion-textarea>
 }@else {
 <div class="multi-output-content">
-  @for (output of SilverChainOutput()?.TextData; track $index) { @if(output.Text !== undefined) {
-  <ion-textarea autoGrow="true" [value]="output.Text"> </ion-textarea>
-  } }
+  @for (output of SilverChainOutput()?.TextData; track $index){
+  <div class="output-seperator">
+    @if(output.Text !== undefined) {
+    <ion-textarea autoGrow="true" [value]="output.Text"> </ion-textarea>
+    } @if(output.Image !== undefined) {
+    <img [src]="output.Image" />
+    } @if(output.HTMLString !== undefined) {
+    <div class="html-container">
+      <div [innerHTML]="ConvertSafeHtml(output.HTMLString)"></div>
+    </div>
+    } @if(output.Markdown !== undefined) {
+    <div class="markdown-container">
+      <markdown>{{ output.Markdown }}</markdown>
+    </div>
+    } @if(output.Object !== undefined) {
+    <div class="json-container">
+      <ngx-json-viewer [json]="output.Object" [depth]="1"></ngx-json-viewer>
+    </div>
+    } @if(output.Table !== undefined) {
+    <div class="json-container">
+      <app-simple-table [TableData]="output.Table"></app-simple-table>
+    </div>
+    }
+  </div>
+  }
 </div>
 }
