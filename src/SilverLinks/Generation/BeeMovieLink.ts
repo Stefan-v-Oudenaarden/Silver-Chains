@@ -7,7 +7,9 @@ import { CustomSilverLink } from '../CustomSilverLinks';
 export class BeeMovieLink extends CustomSilverLink {
   override Name = 'Bee Movie';
   override Category = 'Generation';
-  override Description = `Replaces the text with the first 15 lines of the Bee movie script. \n Can optionally append the script instead.`;
+  override Description = `Replaces the text with the first 15 lines of the Bee movie script. 
+   
+  Can optionally append the script instead.`;
 
   override HasSettings = true;
   override ShowSettings = signal<boolean>(false);

@@ -8,7 +8,8 @@ import { LoremIpsum } from 'lorem-ipsum';
 export class LorempIpsumLink extends CustomSilverLink {
   override Name = 'Lorem Ipsum';
   override Category = 'Generation';
-  override Description = `Generates Lorem Ipsum text. Because sometimes you need that.`;
+  override Description = `Generates Lorem Ipsum text. 
+  Because sometimes you need that.`;
 
   override HasSettings = true;
   override ShowSettings = signal<boolean>(true);
