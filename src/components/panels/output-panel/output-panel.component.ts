@@ -57,7 +57,19 @@ export class OutputPanelComponent implements OnInit {
 
   public async CopyText() {
     try {
-      await navigator.clipboard.writeText(this.TextOutput() || '');
+      let text = '';
+      if (this.IsSimpleTextOutput()) {
+        console.log('copy');
+        text = this.TextOutput();
+      } else {
+        const element = document.getElementById('multi-output-content');
+        if (element) {
+          text = element.textContent || '';
+          console.log(text);
+        }
+      }
+
+      await navigator.clipboard.writeText(text);
     } catch (error: any) {
       console.error(error.message);
     }

@@ -58,7 +58,6 @@ export class HomePage {
   });
 
   constructor() {
-    this.LinkChain().push(new OutputTestLink());
     addIcons({ trashSharp, chevronDownSharp, chevronUpSharp });
   }
 
