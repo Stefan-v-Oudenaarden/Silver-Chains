@@ -17,7 +17,7 @@
   @for (output of SilverChainOutput()?.TextData; track $index){
   <div class="output-seperator">
     @if(output.Text !== undefined) {
-    <ion-textarea autoGrow="true" [value]="output.Text"> </ion-textarea>
+    <ion-textarea autoGrow="true" [value]="output.Text + '\n'"> </ion-textarea>
     } @if(output.Image !== undefined) {
     <img [src]="output.Image" />
     } @if(output.HTMLString !== undefined) {
