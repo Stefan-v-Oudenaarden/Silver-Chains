@@ -23,14 +23,14 @@ export type SilverLinkTextElement = {
 };
 
 export class SilverLinkData {
-  public TextData: SilverLinkTextElement[];
+  public DataFields: SilverLinkTextElement[];
 
   constructor(input: string | undefined = undefined) {
     if (input === undefined) {
-      this.TextData = [];
+      this.DataFields = [];
       return;
     } else {
-      this.TextData = [{ Text: input }];
+      this.DataFields = [{ Text: input }];
     }
   }
 }

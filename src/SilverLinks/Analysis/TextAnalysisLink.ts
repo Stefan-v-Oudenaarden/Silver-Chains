@@ -59,7 +59,7 @@ export class TextAnalysisLink extends ComplexSilverLink {
       }
 
       table.Rows.push({
-        Columns: [{ Text: key }, { Text: value.toString() }],
+        Columns: [{ Text: key }, { Text: value.toLocaleString('en-US') }],
       });
     }
 

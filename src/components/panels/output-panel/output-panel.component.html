@@ -14,7 +14,7 @@
 <ion-textarea class="single-output" autoGrow="true" [value]="TextOutput()"> </ion-textarea>
 }@else {
 <div id="multi-output-content" class="multi-output-content">
-  @for (output of SilverChainOutput()?.TextData; track $index){
+  @for (output of SilverChainOutput()?.DataFields; track $index){
   <div class="output-seperator">
     @if(output.Text !== undefined) {
     <ion-textarea autoGrow="true" [value]="output.Text + '\n'"> </ion-textarea>

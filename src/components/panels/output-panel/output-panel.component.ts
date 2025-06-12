@@ -25,22 +25,22 @@ export class OutputPanelComponent implements OnInit {
   public IsSimpleTextOutput = computed(() => {
     const data = this.SilverChainOutput();
 
-    if (!data || !data.TextData || data.TextData.length == 0) {
+    if (!data || !data.DataFields || data.DataFields.length == 0) {
       return false;
     }
 
-    const dataTypes = Object.keys(data.TextData[0]);
+    const dataTypes = Object.keys(data.DataFields[0]);
 
-    return data.TextData.length === 1 && dataTypes.length == 1 && dataTypes.includes('Text');
+    return data.DataFields.length === 1 && dataTypes.length == 1 && dataTypes.includes('Text');
   });
 
   public TextOutput = computed(() => {
     const data = this.SilverChainOutput();
-    if (!data || !data.TextData || data.TextData.length == 0) {
+    if (!data || !data.DataFields || data.DataFields.length == 0) {
       return '';
     }
 
-    for (const element of data.TextData) {
+    for (const element of data.DataFields) {
       if (element.Text !== undefined) {
         return element.Text;
       }

@@ -89,8 +89,8 @@ export class LorempIpsumLink extends CustomSilverLink {
     let original: string | undefined = undefined;
 
     if (this.Settings.Append) {
-      if (Input.TextData.length > 0 && Input.TextData[0].Text !== undefined) {
-        original = Input.TextData[0].Text;
+      if (Input.DataFields.length > 0 && Input.DataFields[0].Text !== undefined) {
+        original = Input.DataFields[0].Text;
       }
     }
 

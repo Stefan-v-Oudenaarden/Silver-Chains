@@ -25,7 +25,7 @@ export abstract class ComplexSilverLink implements SilverLink {
     try {
       Output = this.SimpleTextParse(Input);
     } catch (e: any) {
-      Output.TextData[0].Text = e;
+      Output.DataFields[0].Text = e;
       this.Error.set(true);
     }
     return Output;
@@ -34,8 +34,8 @@ export abstract class ComplexSilverLink implements SilverLink {
   private SimpleTextParse(Input: SilverLinkData): SilverLinkData {
     let output = new SilverLinkData();
 
-    for (let entry of Input.TextData) {
-      output.TextData.push(this.PerEntryOperation(entry));
+    for (let entry of Input.DataFields) {
+      output.DataFields.push(this.PerEntryOperation(entry));
     }
 
     this.Output.set(output);

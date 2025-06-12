@@ -58,8 +58,8 @@ Ow! That's me!`;
     if (this.Settings.Append) {
       let original = '';
 
-      if (Input.TextData.length > 0 && Input.TextData[0].Text !== undefined) {
-        original = Input.TextData[0].Text;
+      if (Input.DataFields.length > 0 && Input.DataFields[0].Text !== undefined) {
+        original = Input.DataFields[0].Text;
       }
       return new SilverLinkData([original, this.BeeMovie].join('\n'));
     }

@@ -20,4 +20,4 @@
 
 <ion-textarea placeholder="Enter text" autoGrow="true" (ionInput)="onTextAreaInput($event)" [(ngModel)]="InputValue"> </ion-textarea>
 
-<input type="file" (change)="onFileSelected($event)" accept="*.*" #fileInput />
+<input style="position: absolute; right: -999999999999px" tabindex="-1" type="file" (change)="onFileSelected($event)" accept="*.*" #fileInput />

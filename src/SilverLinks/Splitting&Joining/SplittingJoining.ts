@@ -34,7 +34,7 @@ export class SplitTextLink implements SilverLink {
   SplitText(input: SilverLinkData): SilverLinkData {
     let output = new SilverLinkData();
 
-    for (const entry of input.TextData) {
+    for (const entry of input.DataFields) {
       if (entry.Text !== undefined) {
         const lines = entry.Text.split('\n');
 
@@ -42,7 +42,7 @@ export class SplitTextLink implements SilverLink {
           if (line === '') {
             continue;
           }
-          output.TextData.push({ Text: line });
+          output.DataFields.push({ Text: line });
         }
       }
     }
@@ -87,7 +87,7 @@ export class JoinTextLink implements SilverLink {
     let output = new SilverLinkData('');
     let allTextFields = [];
 
-    for (const entry of input.TextData) {
+    for (const entry of input.DataFields) {
       if (entry.Text !== undefined) {
         allTextFields.push(entry.Text);
       }

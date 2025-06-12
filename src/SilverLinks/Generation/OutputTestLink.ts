@@ -215,14 +215,14 @@ export class OutputTestLink implements SilverLink {
   public Run(Input: SilverLinkData): SilverLinkData {
     let output = new SilverLinkData();
 
-    output.TextData.push({});
+    output.DataFields.push({});
 
-    output.TextData[0].Table = TableExample;
-    output.TextData[0].Text = LoremIpsumExample;
-    output.TextData[0].Image = 'assets/test-image.png';
-    output.TextData[0].HTMLString = '<p>Hello</p><ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>';
-    output.TextData[0].Markdown = MarkdownExample;
-    output.TextData[0].Object = ObjectExample;
+    output.DataFields[0].Table = TableExample;
+    output.DataFields[0].Text = LoremIpsumExample;
+    output.DataFields[0].Image = 'assets/test-image.png';
+    output.DataFields[0].HTMLString = '<p>Hello</p><ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>';
+    output.DataFields[0].Markdown = MarkdownExample;
+    output.DataFields[0].Object = ObjectExample;
 
     return output;
   }
