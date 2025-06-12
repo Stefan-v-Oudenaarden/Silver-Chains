@@ -1,9 +1,8 @@
-import { Injectable, isDevMode, Signal, WritableSignal } from '@angular/core';
+import { Injectable, isDevMode, WritableSignal } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+
 import { SimpleTableData } from 'src/components/simple-table/simple-table.component';
 
-import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
-import { BeeMovieLink } from 'src/SilverLinks/Generation/BeeMovieLink';
 import { AsHtmlLink } from 'src/SilverLinks/Parsing/ASHtmlLink';
 import { AsJsonLink } from 'src/SilverLinks/Parsing/AsJsonLink';
 import { AsMarkdownLink } from 'src/SilverLinks/Parsing/AsMarkdownLink';
@@ -11,6 +10,9 @@ import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/Splitting&Joining/S
 import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/Transformation/SimpleTextEdits';
 import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
 import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
+import { UUIDLink } from 'src/SilverLinks/Generation/UUIDLink';
+import { CopyPastaLink } from 'src/SilverLinks/Generation/CopyPastaLink';
+import { RandomNumbersLink } from 'src/SilverLinks/Generation/RandomNumbersLin';
 
 export type SilverLinkTextElement = {
   Text?: string;
@@ -66,8 +68,10 @@ export class LinksService {
     new TextAnalysisLink(),
 
     //Generation
-    new BeeMovieLink(),
+    new CopyPastaLink(),
     new LorempIpsumLink(),
+    new UUIDLink(),
+    new RandomNumbersLink(),
 
     //Parsing
     new AsMarkdownLink(),
@@ -84,9 +88,5 @@ export class LinksService {
     new TrimTextLink(),
   ];
 
-  constructor() {
-    if (isDevMode()) {
-      this.Links.push(new OutputTestLink());
-    }
-  }
+  constructor() {}
 }
