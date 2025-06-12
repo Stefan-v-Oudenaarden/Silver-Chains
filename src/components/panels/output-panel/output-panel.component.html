@@ -16,7 +16,7 @@
 <div id="multi-output-content" class="multi-output-content">
   @for (output of SilverChainOutput()?.DataFields; track $index){
   <div class="output-seperator">
-    @if(output.Text !== undefined) {
+    @if(output.Text !== undefined && !output.HideTextField) {
     <ion-textarea autoGrow="true" [value]="output.Text + '\n'"> </ion-textarea>
     } @if(output.Image !== undefined) {
     <img [src]="output.Image" />

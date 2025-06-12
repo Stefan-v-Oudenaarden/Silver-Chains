@@ -24,6 +24,7 @@ export abstract class BasicSilverLink implements SilverLink {
     let Output = new SilverLinkData('');
     try {
       Output = this.SimpleTextParse(Input);
+      this.Error.set(false);
     } catch (e: any) {
       Output.DataFields[0].Text = e;
       this.Error.set(true);

@@ -21,7 +21,7 @@ export class TextAnalysisLink extends ComplexSilverLink {
       type: 'checkbox',
       defaultValue: false,
       props: {
-        label: 'Include the anyaliszed text in the output?',
+        label: 'Include the analyzed text in the output?',
         required: false,
       },
     },
@@ -29,6 +29,11 @@ export class TextAnalysisLink extends ComplexSilverLink {
 
   public override PerEntryOperation(entry: SilverLinkTextElement): SilverLinkTextElement {
     let newEntry: SilverLinkTextElement = {};
+
+    newEntry.Text = entry.Text;
+    newEntry.HideTextField = !this.Settings.Include;
+
+    console.log(newEntry);
 
     if (!entry.Text) {
       return newEntry;
@@ -61,10 +66,6 @@ export class TextAnalysisLink extends ComplexSilverLink {
       table.Rows.push({
         Columns: [{ Text: key }, { Text: value.toLocaleString('en-US') }],
       });
-    }
-
-    if (this.Settings.Include) {
-      newEntry.Text = entry.Text;
     }
 
     newEntry.Table = table;

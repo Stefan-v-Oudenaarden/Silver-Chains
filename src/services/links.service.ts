@@ -14,6 +14,7 @@ import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
 
 export type SilverLinkTextElement = {
   Text?: string;
+  HideTextField?: boolean;
   Information?: string;
   Image?: string;
   HTMLString?: string;

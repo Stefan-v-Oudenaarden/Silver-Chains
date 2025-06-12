@@ -12,6 +12,8 @@ export class AsMarkdownLink extends ComplexSilverLink {
     let newEntry: SilverLinkTextElement = {};
 
     if (entry.Text) {
+      newEntry.Text = entry.Text;
+      newEntry.HideTextField = true;
       newEntry.Markdown = entry.Text;
     }
 

@@ -12,6 +12,8 @@ export class AsJsonLink extends ComplexSilverLink {
 
     try {
       if (entry.Text) {
+        newEntry.Text = entry.Text;
+        newEntry.HideTextField = true;
         newEntry.Object = JSON.parse(entry.Text);
       }
     } catch (e: any) {
