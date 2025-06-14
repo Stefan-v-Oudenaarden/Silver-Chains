@@ -74,15 +74,12 @@ Silver Chains includes many additional text processing operators to handle vario
 
 # Technology Stack
 
-TypeScript - Type-safe development
-Angular - Component-based frontend framework
-Ionic - Cross-platform UI components
-GitHub Pages - Static site hosting
+- TypeScript
+- Angular
+- Ionic
+- GitHub Pages - Static site hosting
 
-#Getting Started
-Using Silver Chains Online
-Simply visit https://stefan-v-oudenaarden.github.io/Silver-Chains/ to start using the application immediately.
-Local Development
+# Instal / Build
 
 1. **Clone the repository**
 
