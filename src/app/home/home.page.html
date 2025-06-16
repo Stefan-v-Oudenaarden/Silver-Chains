@@ -43,14 +43,17 @@
         <h3>Chain</h3>
 
         <ion-buttons>
-          <ion-button (click)="ToggleShowHideAllLinkSettings()">
+          <ion-button (click)="RunSilverLinkChain()" title="Run">
+            <ion-icon slot="icon-only" name="send-sharp"></ion-icon>
+          </ion-button>
+          <ion-button (click)="ToggleShowHideAllLinkSettings()" title="Show/Hide all Settings">
             @if(AllChainLinksSettingsShow()) {
             <ion-icon slot="icon-only" name="chevron-up-sharp"></ion-icon>
             }@else{
             <ion-icon slot="icon-only" name="chevron-down-sharp"></ion-icon>
             }
           </ion-button>
-          <ion-button (click)="EmptyLinkChain()">
+          <ion-button (click)="EmptyLinkChain()" title="Remove all Operators">
             <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
           </ion-button>
         </ion-buttons>

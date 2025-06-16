@@ -2,17 +2,17 @@
   <h3>Input</h3>
 
   <ion-buttons>
-    <ion-button (click)="LoadTextFromFileClick()" [disabled]="LoadingFile()">
+    <ion-button (click)="LoadTextFromFileClick()" [disabled]="LoadingFile()" title="Read File">
       @if(LoadingFile()) {
       <ion-spinner></ion-spinner>
       }@else {
       <ion-icon slot="icon-only" name="enter-sharp"></ion-icon>
       }
     </ion-button>
-    <ion-button (click)="CopyText()">
+    <ion-button (click)="CopyText()" title="Copy to clipboard">
       <ion-icon slot="icon-only" name="copy-sharp"></ion-icon>
     </ion-button>
-    <ion-button (click)="EmptyInput()">
+    <ion-button (click)="EmptyInput()" title="Clear Text">
       <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
     </ion-button>
   </ion-buttons>

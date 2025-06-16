@@ -6,7 +6,7 @@ import { LinkChainService } from 'src/services/linkchain.service';
 import { InputPanelComponent } from '../../components/panels/input-panel/input-panel.component';
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
 import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
-import { trashSharp, chevronDownSharp, chevronUpSharp } from 'ionicons/icons';
+import { trashSharp, chevronDownSharp, chevronUpSharp, sendSharp } from 'ionicons/icons';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
@@ -72,7 +72,7 @@ export class HomePage {
     // this.LinkChain().push(new TextAnalysisLink());
     // this.RunSilverLinkChain();
 
-    addIcons({ trashSharp, chevronDownSharp, chevronUpSharp });
+    addIcons({ trashSharp, chevronDownSharp, chevronUpSharp, sendSharp });
   }
 
   RunSilverLinkChain() {
