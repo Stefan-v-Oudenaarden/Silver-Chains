@@ -94,7 +94,7 @@ export class JoinTextLink implements SilverLink {
     }
 
     if (allTextFields.length !== 0) {
-      output = new SilverLinkData(allTextFields.join('\n'));
+      output = new SilverLinkData(allTextFields.join('\n\n'));
     }
 
     return output;

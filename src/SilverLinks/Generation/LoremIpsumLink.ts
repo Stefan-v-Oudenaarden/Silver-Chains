@@ -99,7 +99,7 @@ export class LorempIpsumLink extends CustomSilverLink {
       const settingsState = JSON.stringify(this.Settings);
 
       if (this.LoremValue && settingsState === this.LastSettingState) {
-        return new SilverLinkData([original, this.LoremValue].join('\n'));
+        return new SilverLinkData(JoinedString(original, this.LoremValue, '\n'));
       }
 
       this.LastSettingState = settingsState;

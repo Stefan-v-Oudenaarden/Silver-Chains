@@ -12,7 +12,6 @@ export function GetCssVariableFromDocument(cssVariable: string, fallback: string
 }
 
 type JoinableElement = string | number | string[] | number[];
-
 export function JoinedString(
   firstElement: JoinableElement | undefined,
   secondElement: JoinableElement | undefined,
@@ -50,4 +49,13 @@ function JoinableElementToArray(input: JoinableElement): string[] {
     case 'number':
       return [input.toLocaleString()];
   }
+}
+
+export function ArrayShuffle(input: any[]) {
+  let m = input.length;
+  while (m) {
+    const i = Math.floor(Math.random() * m--);
+    [input[m], input[i]] = [input[i], input[m]];
+  }
+  return input;
 }

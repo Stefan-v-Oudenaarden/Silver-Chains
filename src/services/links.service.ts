@@ -104,6 +104,6 @@ export class LinksService {
     let lorem = new LorempIpsumLink();
     lorem.Settings.Static = true;
 
-    this.DevLinks = [lorem];
+    this.DevLinks = [lorem, new LineNumbersLink()];
   }
 }
