@@ -4,6 +4,7 @@ import { SilverLink, SilverLinkData } from 'src/services/links.service';
 import { BasicSilverLink } from '../BaseLinkImplementation';
 import { CustomSilverLink } from '../CustomSilverLinks';
 import { LoremIpsum } from 'lorem-ipsum';
+import { JoinedString } from 'src/app/helpers';
 
 export class LorempIpsumLink extends CustomSilverLink {
   override Name = 'Lorem Ipsum';
@@ -116,7 +117,7 @@ export class LorempIpsumLink extends CustomSilverLink {
         break;
     }
 
-    return new SilverLinkData([original, this.LoremValue].join('\n'));
+    return new SilverLinkData(JoinedString(original, this.LoremValue, '\n'));
   }
   public override New(): SilverLink {
     return new LorempIpsumLink();

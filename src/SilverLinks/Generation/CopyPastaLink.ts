@@ -3,6 +3,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink, SilverLinkData } from 'src/services/links.service';
 import { CustomSilverLink } from '../CustomSilverLinks';
 import * as Copypastas from './CopyPastaTextcollection';
+import { JoinedString } from 'src/app/helpers';
 
 export class CopyPastaLink extends CustomSilverLink {
   override Name = 'Copypastas';
@@ -62,7 +63,10 @@ export class CopyPastaLink extends CustomSilverLink {
       if (Input.DataFields.length > 0 && Input.DataFields[0].Text !== undefined) {
         original = Input.DataFields[0].Text;
       }
-      return new SilverLinkData([original, selectedText].join('\n\n'));
+
+      if (original) {
+        return new SilverLinkData(JoinedString(original, selectedText, '\n'));
+      }
     }
 
     return new SilverLinkData(selectedText);

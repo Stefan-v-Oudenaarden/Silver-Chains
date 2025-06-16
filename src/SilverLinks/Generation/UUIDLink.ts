@@ -3,6 +3,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink, SilverLinkData } from 'src/services/links.service';
 import { CustomSilverLink } from '../CustomSilverLinks';
 import { v1 as uuidv1, v3 as uuidv3, v4 as uuidv4, v5 as uuidv5, v6 as uuidv6, v7 as uuidv7 } from 'uuid';
+import { JoinedString } from 'src/app/helpers';
 
 export class UUIDLink extends CustomSilverLink {
   override Name = 'UUID';
@@ -146,7 +147,8 @@ export class UUIDLink extends CustomSilverLink {
       if (Input.DataFields.length > 0 && Input.DataFields[0].Text !== undefined) {
         original = Input.DataFields[0].Text;
       }
-      return new SilverLinkData([original, uuidsString].join('\n'));
+
+      return new SilverLinkData(JoinedString(original, uuidsString, '\n'));
     }
 
     return new SilverLinkData(uuidsString);

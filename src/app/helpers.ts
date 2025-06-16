@@ -10,3 +10,44 @@ export function GetCssVariableFromDocument(cssVariable: string, fallback: string
 
   return result;
 }
+
+type JoinableElement = string | number | string[] | number[];
+
+export function JoinedString(
+  firstElement: JoinableElement | undefined,
+  secondElement: JoinableElement | undefined,
+  joinString: string = ','
+): string {
+  let joinArray: string[] = [];
+
+  if (firstElement) {
+    joinArray = [...joinArray, ...JoinableElementToArray(firstElement)];
+  }
+
+  if (secondElement) {
+    joinArray = [...joinArray, ...JoinableElementToArray(secondElement)];
+  }
+
+  return joinArray.join(joinString);
+}
+
+function JoinableElementToArray(input: JoinableElement): string[] {
+  switch (typeof input) {
+    case 'string':
+      return [input];
+
+    case 'object':
+      return Object.values(input)
+        .map((element) => {
+          if (typeof element === 'string' && element) {
+            return element;
+          } else if (typeof element === 'number') return element.toLocaleString();
+          return undefined;
+        })
+        .filter((element) => element !== undefined);
+
+    default:
+    case 'number':
+      return [input.toLocaleString()];
+  }
+}

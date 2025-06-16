@@ -2,6 +2,7 @@ import { input, signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink, SilverLinkData } from 'src/services/links.service';
 import { CustomSilverLink } from '../CustomSilverLinks';
+import { JoinedString } from 'src/app/helpers';
 
 export class RandomNumbersLink extends CustomSilverLink {
   override Name = 'Random Numbers';
@@ -81,7 +82,7 @@ export class RandomNumbersLink extends CustomSilverLink {
       }
     }
 
-    return new SilverLinkData([original, numbersString].join('\n'));
+    return new SilverLinkData(JoinedString(original, numbersString, '\n'));
   }
 
   public override New(): SilverLink {
