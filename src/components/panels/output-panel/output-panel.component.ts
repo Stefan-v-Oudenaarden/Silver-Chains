@@ -1,9 +1,9 @@
-import { Component, computed, ElementRef, inject, input, OnInit, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnInit, output, viewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IonButton, IonButtons, IonIcon, IonTextarea } from '@ionic/angular/standalone';
 import { MarkdownComponent } from 'ngx-markdown';
 import { addIcons } from 'ionicons';
-import { copySharp, exitSharp } from 'ionicons/icons';
+import { copySharp, exitSharp, pushSharp } from 'ionicons/icons';
 import { SilverLinkData } from 'src/services/links.service';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
@@ -17,6 +17,7 @@ import { SimpleTableComponent } from 'src/components/simple-table/simple-table.c
 })
 export class OutputPanelComponent implements OnInit {
   public SilverChainOutput = input<SilverLinkData>();
+  public CopyOutputToInputSignal = output<string>();
 
   public DomSanitizer = inject(DomSanitizer);
 
@@ -50,7 +51,7 @@ export class OutputPanelComponent implements OnInit {
   });
 
   constructor() {
-    addIcons({ copySharp, exitSharp });
+    addIcons({ copySharp, exitSharp, pushSharp });
   }
 
   ngOnInit() {}
@@ -70,6 +71,25 @@ export class OutputPanelComponent implements OnInit {
       }
 
       await navigator.clipboard.writeText(text);
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  }
+
+  public CopyOutputToInput() {
+    try {
+      let text = '';
+      if (this.IsSimpleTextOutput()) {
+        console.log('copy');
+        text = this.TextOutput();
+      } else {
+        const element = document.getElementById('multi-output-content');
+        if (element) {
+          text = element.textContent || '';
+          console.log(text);
+        }
+      }
+      this.CopyOutputToInputSignal.emit(text);
     } catch (error: any) {
       console.error(error.message);
     }

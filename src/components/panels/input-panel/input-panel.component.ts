@@ -1,9 +1,10 @@
-import { Component, ElementRef, inject, OnInit, output, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, linkedSignal, OnInit, output, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonTextarea, IonIcon, IonButton, IonButtons, IonSpinner } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { copySharp, enterSharp, trashSharp } from 'ionicons/icons';
-import { SilverLinkData } from 'src/services/links.service';
+import { LinkChainService } from 'src/services/linkchain.service';
+import { LinksService, SilverLinkData } from 'src/services/links.service';
 import { ToastService } from 'src/services/toast.service';
 
 @Component({
@@ -14,12 +15,22 @@ import { ToastService } from 'src/services/toast.service';
 })
 export class InputPanelComponent implements OnInit {
   //Component IO
+  public InputText = input<string | undefined>(undefined);
   public UserInput = output<SilverLinkData>();
 
   //Services
   private ToastService = inject(ToastService);
 
-  public InputValue = signal<string>(``);
+  // public InputValue = signal<string>(``);
+  public InputValue = linkedSignal(() => {
+    const InputText = this.InputText();
+    if (InputText !== undefined) {
+      this.PushUserInput(InputText);
+      return InputText;
+    }
+    return '';
+  });
+
   public LoadingFile = signal<boolean>(false);
   private fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 

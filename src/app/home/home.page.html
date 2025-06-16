@@ -85,13 +85,13 @@
         <as-split direction="vertical" [gutterSize]="3">
           <as-split-area [size]="40" [minSize]="15" class="hide-overflow">
             <div id="input-panel">
-              <app-input-panel (UserInput)="OnUserInput($event)"></app-input-panel>
+              <app-input-panel (UserInput)="OnUserInput($event)" [InputText]="InputValue()"></app-input-panel>
             </div>
           </as-split-area>
 
           <as-split-area [size]="60" [minSize]="15" class="hide-overflow">
             <div id="output-panel">
-              <app-output-panel [SilverChainOutput]="SilverChainOutput()"></app-output-panel>
+              <app-output-panel [SilverChainOutput]="SilverChainOutput()" (CopyOutputToInputSignal)="CopyOutputToInput($event)"></app-output-panel>
             </div>
           </as-split-area>
         </as-split>

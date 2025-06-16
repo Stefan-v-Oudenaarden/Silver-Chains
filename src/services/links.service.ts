@@ -13,6 +13,10 @@ import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
 import { UUIDLink } from 'src/SilverLinks/Generation/UUIDLink';
 import { CopyPastaLink } from 'src/SilverLinks/Generation/CopyPastaLink';
 import { RandomNumbersLink } from 'src/SilverLinks/Generation/RandomNumbersLin';
+import { ReverseLinesLink, ReverseTextLink } from 'src/SilverLinks/Transformation/ReverseTextLinks';
+import { RandomizeLinesLink, RandomizeTextLink } from 'src/SilverLinks/Transformation/RandomizeTextLinks';
+import { LineNumbersLink } from 'src/SilverLinks/Transformation/LineNumbersLink';
+import { PadLineLink } from 'src/SilverLinks/Transformation/PadLineLink';
 
 export type SilverLinkTextElement = {
   Text?: string;
@@ -63,6 +67,8 @@ export interface SilverLink {
   providedIn: 'root',
 })
 export class LinksService {
+  public DevLinks: SilverLink[] = [];
+
   public Links: SilverLink[] = [
     //Analysis
     new TextAnalysisLink(),
@@ -86,7 +92,18 @@ export class LinksService {
     new ToUpperCaseLink(),
     new ToLowerCaseLink(),
     new TrimTextLink(),
+    new ReverseTextLink(),
+    new ReverseLinesLink(),
+    new RandomizeTextLink(),
+    new RandomizeLinesLink(),
+    new LineNumbersLink(),
+    new PadLineLink(),
   ];
 
-  constructor() {}
+  constructor() {
+    let lorem = new LorempIpsumLink();
+    lorem.Settings.Static = true;
+
+    this.DevLinks = [lorem];
+  }
 }

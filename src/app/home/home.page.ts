@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, isDevMode, signal } from '@angular/core';
 import { SplitAreaComponent, SplitComponent } from 'angular-split';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { LinksService, SilverLink, SilverLinkData } from 'src/services/links.service';
@@ -6,7 +6,7 @@ import { LinkChainService } from 'src/services/linkchain.service';
 import { InputPanelComponent } from '../../components/panels/input-panel/input-panel.component';
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
 import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
-import { trashSharp, chevronDownSharp, chevronUpSharp, sendSharp } from 'ionicons/icons';
+import { trashSharp, chevronDownSharp, chevronUpSharp, sendSharp, pushOutline } from 'ionicons/icons';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
@@ -39,6 +39,7 @@ export class HomePage {
   private LinkChainService = inject(LinkChainService);
 
   public UserInput = signal<SilverLinkData>(new SilverLinkData(''));
+  public InputValue = signal<string | undefined>(undefined);
   public SilverChainOutput = signal<SilverLinkData>(new SilverLinkData(''));
   public AllChainLinksSettingsShow = signal<boolean>(false);
 
@@ -73,6 +74,12 @@ export class HomePage {
     // this.RunSilverLinkChain();
 
     addIcons({ trashSharp, chevronDownSharp, chevronUpSharp, sendSharp });
+
+    if (isDevMode()) {
+      for (let link of this.LinksService.DevLinks) {
+        this.LinkChain().push(link);
+      }
+    }
   }
 
   RunSilverLinkChain() {
@@ -116,6 +123,10 @@ export class HomePage {
   OnUserInput(input: SilverLinkData) {
     this.UserInput.set(input);
     this.RunSilverLinkChain();
+  }
+
+  CopyOutputToInput(output: string) {
+    this.InputValue.set(output);
   }
 
   drop(event: CdkDragDrop<SilverLink[]>) {
