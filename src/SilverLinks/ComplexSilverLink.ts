@@ -9,6 +9,7 @@ export abstract class ComplexSilverLink implements SilverLink {
   public Disabled = signal<boolean>(false);
 
   public Id: string = uuidv4();
+  public Searchterms: string = '';
   public Name: string = '';
   public Category: string = '';
   public Description: string = '';

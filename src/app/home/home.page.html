@@ -14,6 +14,19 @@
         [cdkDropListSortingDisabled]="true"
         (cdkDropListDropped)="drop($event)"
       >
+        <div class="link-search">
+          <ion-searchbar placeholder="Search..." [(ngModel)]="LinkSearchString"></ion-searchbar>
+
+          @for (link of SearchResult(); track $index) {
+          <app-link-item
+            cdkDrag
+            [cdkDragData]="link"
+            class="no-text-select"
+            [Link]="link"
+            (dblclick)="OnLinkItemDoubleClick($event, link)"
+          ></app-link-item>
+          }
+        </div>
         @for (category of LinkCategories(); track $index) {
         <ion-accordion-group [value]="category">
           <ion-accordion [value]="CategoriesDefaultState.get(category) ? category : false">

@@ -21,6 +21,24 @@
     }
   }
 
+  .link-search {
+    // height: 50px;
+    background: var(--ion-color-secondary);
+
+    margin-bottom: 1.5px;
+
+    ion-searchbar {
+      padding: 0px;
+      --box-shadow: unset;
+      margin: auto;
+      height: 50px;
+
+      --background: var(--ion-color-secondary);
+      --color: var(--ion-color-primary-contrast);
+      --icon-color: var(--ion-color-primary-contrast);
+    }
+  }
+
   #links-panel {
     width: 100%;
 

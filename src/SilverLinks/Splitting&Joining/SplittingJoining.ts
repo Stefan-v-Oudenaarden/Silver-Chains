@@ -9,6 +9,7 @@ export class SplitTextLink implements SilverLink {
   public Disabled = signal<boolean>(false);
 
   public Id: string = uuidv4();
+  public Searchterms: string = '';
   public Name: string = 'Split Text';
   public Category: string = 'Splitting & Joining';
   public Description: string = 'Splits Text on newlines';
@@ -61,6 +62,7 @@ export class JoinTextLink implements SilverLink {
   public Disabled = signal<boolean>(false);
 
   public Id: string = uuidv4();
+  public Searchterms: string = '';
   public Name: string = 'Join Text';
   public Category: string = 'Splitting & Joining';
   public Description: string = 'Join all existing fields back into one field with newlines in between.';

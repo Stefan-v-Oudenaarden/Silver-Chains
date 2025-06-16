@@ -201,6 +201,7 @@ export class OutputTestLink implements SilverLink {
   public Disabled = signal<boolean>(false);
 
   public Id: string = uuidv4();
+  public Searchterms: string = 'debug';
   public Name: string = 'Output Test';
   public Category: string = 'Generation';
   public Description: string = 'Sets a series of test output values. ';

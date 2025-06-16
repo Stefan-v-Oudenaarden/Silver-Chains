@@ -44,6 +44,7 @@ export class SilverLinkData {
 
 export interface SilverLink {
   Name: string;
+  Searchterms: string;
   Description: string;
   Category: string;
   Id: string;
@@ -104,6 +105,6 @@ export class LinksService {
     let lorem = new LorempIpsumLink();
     lorem.Settings.Static = true;
 
-    this.DevLinks = [lorem, new LineNumbersLink()];
+    this.DevLinks = [lorem];
   }
 }

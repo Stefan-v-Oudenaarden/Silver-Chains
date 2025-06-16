@@ -7,6 +7,7 @@ import { JoinedString } from 'src/app/helpers';
 
 export class CopyPastaLink extends CustomSilverLink {
   override Name = 'Copypastas';
+  override Searchterms = 'meme';
   override Category = 'Generation';
   override Description = `Replaces or appends text with various popular internet copypastas.`;
 

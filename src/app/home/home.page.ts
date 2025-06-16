@@ -7,17 +7,19 @@ import { InputPanelComponent } from '../../components/panels/input-panel/input-p
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
 import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
 import { trashSharp, chevronDownSharp, chevronUpSharp, sendSharp, pushOutline } from 'ionicons/icons';
-import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
+import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon, IonSearchbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
 import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
 import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [
+    IonSearchbar,
     IonIcon,
     IonButtons,
     IonButton,
@@ -32,6 +34,7 @@ import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
     InputPanelComponent,
     OutputPanelComponent,
     LinkItemComponent,
+    FormsModule,
   ],
 })
 export class HomePage {
@@ -42,6 +45,21 @@ export class HomePage {
   public InputValue = signal<string | undefined>(undefined);
   public SilverChainOutput = signal<SilverLinkData>(new SilverLinkData(''));
   public AllChainLinksSettingsShow = signal<boolean>(false);
+  public LinkSearchString = signal<string | undefined>(undefined);
+
+  public SearchResult = computed(() => {
+    let searchString = this.LinkSearchString();
+
+    if (searchString) {
+      return this.Links.filter(
+        (link) =>
+          link.Name.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
+          link.Searchterms.toLocaleLowerCase().includes(searchString.toLocaleLowerCase())
+      );
+    }
+
+    return [];
+  });
 
   public LinkChain = this.LinkChainService.LinkChain;
   public Links = this.LinksService.Links;
