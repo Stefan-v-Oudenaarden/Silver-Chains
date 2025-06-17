@@ -49,4 +49,10 @@ export abstract class BasicSilverLink implements SilverLink {
   public abstract PerTextOperation(Text: string): string;
 
   public abstract New(): SilverLink;
+
+  public LoadSettings(Input: any): void {
+    if (this.HasSettings) {
+      this.Settings = Input;
+    }
+  }
 }

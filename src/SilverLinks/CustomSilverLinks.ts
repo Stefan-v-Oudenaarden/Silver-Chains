@@ -24,4 +24,10 @@ export abstract class CustomSilverLink implements SilverLink {
   public abstract Run(Input: SilverLinkData): SilverLinkData;
 
   public abstract New(): SilverLink;
+
+  public LoadSettings(Input: any): void {
+    if (this.HasSettings) {
+      this.Settings = Input;
+    }
+  }
 }

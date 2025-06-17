@@ -231,4 +231,6 @@ export class OutputTestLink implements SilverLink {
   public New(): SilverLink {
     return new OutputTestLink();
   }
+
+  LoadSettings(Input: any): void {}
 }

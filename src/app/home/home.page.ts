@@ -2,17 +2,19 @@ import { Component, computed, inject, isDevMode, signal } from '@angular/core';
 import { SplitAreaComponent, SplitComponent } from 'angular-split';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { LinksService, SilverLink, SilverLinkData } from 'src/services/links.service';
-import { LinkChainService } from 'src/services/linkchain.service';
+import { LinkChainService, SavedLinkChainLink } from 'src/services/linkchain.service';
 import { InputPanelComponent } from '../../components/panels/input-panel/input-panel.component';
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
 import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
 import { trashSharp, chevronDownSharp, chevronUpSharp, sendSharp, pushOutline } from 'ionicons/icons';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon, IonSearchbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { OutputTestLink } from 'src/SilverLinks/Generation/OutputTestLink';
-import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
-import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
+
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +42,13 @@ import { FormsModule } from '@angular/forms';
 export class HomePage {
   private LinksService = inject(LinksService);
   private LinkChainService = inject(LinkChainService);
+  private route = inject(ActivatedRoute);
+  private TitleService = inject(Title);
+
+  private urlData$ = this.route.params.pipe(
+    map((params) => params['data']),
+    takeUntilDestroyed()
+  );
 
   public UserInput = signal<SilverLinkData>(new SilverLinkData(''));
   public InputValue = signal<string | undefined>(undefined);
@@ -93,10 +102,46 @@ export class HomePage {
 
     addIcons({ trashSharp, chevronDownSharp, chevronUpSharp, sendSharp });
 
-    if (isDevMode()) {
-      for (let link of this.LinksService.DevLinks) {
-        this.LinkChain().push(link);
+    // if (isDevMode()) {
+    //   for (let link of this.LinksService.DevLinks) {
+    //     this.LinkChain().push(link);
+    //   }
+    // }
+
+    this.urlData$.subscribe((data) => {
+      if (!data) {
+        return;
       }
+
+      try {
+        var decodedData = atob(data);
+      } catch (e: any) {
+        console.warn(e, data);
+        return;
+      }
+
+      if (decodedData) {
+        this.LinkChainService.ImportChain(decodedData);
+      }
+    });
+  }
+
+  async UpdateUrl() {
+    let base64Data = btoa(this.LinkChainService.ExportChain());
+
+    if (this.LinkChain().length > 0) {
+      history.pushState({ data: base64Data }, '', `/${base64Data}`);
+    } else {
+      history.pushState({ data: base64Data }, '', `/`);
+    }
+  }
+
+  async UpdatePageTitle() {
+    let newTitle = this.LinkChainService.ChainTitle();
+    if (this.LinkChain().length > 0) {
+      this.TitleService.setTitle(`Silver Chains - ${newTitle}`);
+    } else {
+      this.TitleService.setTitle(`Silver Chains`);
     }
   }
 
@@ -105,6 +150,8 @@ export class HomePage {
     const output = this.LinkChainService.ProcessInput(input);
 
     this.SilverChainOutput.set(output);
+    this.UpdateUrl();
+    this.UpdatePageTitle();
   }
 
   EmptyLinkChain() {

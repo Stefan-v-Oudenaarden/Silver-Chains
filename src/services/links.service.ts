@@ -61,6 +61,7 @@ export interface SilverLink {
   SettingsFormOptions?: FormlyFormOptions;
 
   Run(Input: SilverLinkData): SilverLinkData;
+  LoadSettings(Input: any): void;
   New(): SilverLink;
 }
 
@@ -105,6 +106,6 @@ export class LinksService {
     let lorem = new LorempIpsumLink();
     lorem.Settings.Static = true;
 
-    this.DevLinks = [lorem];
+    this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
   }
 }

@@ -47,4 +47,10 @@ export abstract class ComplexSilverLink implements SilverLink {
   public abstract PerEntryOperation(entry: SilverLinkTextElement): SilverLinkTextElement;
 
   public abstract New(): SilverLink;
+
+  public LoadSettings(Input: any): void {
+    if (this.HasSettings) {
+      this.Settings = Input;
+    }
+  }
 }

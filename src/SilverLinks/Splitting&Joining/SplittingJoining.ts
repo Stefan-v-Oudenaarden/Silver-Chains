@@ -54,6 +54,12 @@ export class SplitTextLink implements SilverLink {
   public New(): SilverLink {
     return new SplitTextLink();
   }
+
+  public LoadSettings(Input: any): void {
+    if (this.HasSettings) {
+      this.Settings = Input;
+    }
+  }
 }
 
 export class JoinTextLink implements SilverLink {
@@ -104,5 +110,11 @@ export class JoinTextLink implements SilverLink {
 
   public New(): SilverLink {
     return new JoinTextLink();
+  }
+
+  public LoadSettings(Input: any): void {
+    if (this.HasSettings) {
+      this.Settings = Input;
+    }
   }
 }

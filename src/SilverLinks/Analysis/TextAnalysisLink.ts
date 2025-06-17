@@ -33,8 +33,6 @@ export class TextAnalysisLink extends ComplexSilverLink {
     newEntry.Text = entry.Text;
     newEntry.HideTextField = !this.Settings.Include;
 
-    console.log(newEntry);
-
     if (!entry.Text) {
       return newEntry;
     }
