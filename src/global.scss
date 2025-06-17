@@ -38,6 +38,16 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+//Bootstrap, for Formly
+
+// Variable overrides first
+$primary: #900;
+$enable-shadows: true;
+$prefix: 'mo-';
+
+// Then import Bootstrap
+@import '../node_modules/bootstrap/scss/bootstrap';
+
 /*
  * Bit of a hack to colour the ngx-popover tooltip arrow.
  * it supports creating a custom element but that feels like overkill just to apply a colour to the arrow.
@@ -49,15 +59,5 @@
 .ng-star-inserted {
   .arrow {
     background-color: var(--tooltip-arrow-color, black) !important;
-  }
-}
-
-/*
-* Formly Css Helpers
-*/
-
-formly-wrapper-ion-form-field {
-  * {
-    --background: var(--ion-color-light-shade);
   }
 }
