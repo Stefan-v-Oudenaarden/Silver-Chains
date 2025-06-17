@@ -45,8 +45,10 @@ export class HomePage {
   private route = inject(ActivatedRoute);
   private TitleService = inject(Title);
 
-  private urlData$ = this.route.params.pipe(
-    map((params) => params['data']),
+  private urlData$ = this.route.queryParams.pipe(
+    map((params) => {
+      return params['Chain'];
+    }),
     takeUntilDestroyed()
   );
 
@@ -97,16 +99,13 @@ export class HomePage {
   });
 
   constructor() {
-    // this.LinkChain().push(new TextAnalysisLink());
-    // this.RunSilverLinkChain();
-
     addIcons({ trashSharp, chevronDownSharp, chevronUpSharp, sendSharp });
 
-    // if (isDevMode()) {
-    //   for (let link of this.LinksService.DevLinks) {
-    //     this.LinkChain().push(link);
-    //   }
-    // }
+    if (isDevMode()) {
+      for (let link of this.LinksService.DevLinks) {
+        this.LinkChain().push(link);
+      }
+    }
 
     this.urlData$.subscribe((data) => {
       if (!data) {
@@ -129,10 +128,22 @@ export class HomePage {
   async UpdateUrl() {
     let base64Data = btoa(this.LinkChainService.ExportChain());
 
+    //Because this is running as a github pages page our root is / normally but /project-name/ on github.
+    //the GH-Pages package automatically injects the project name in index.html in a <base> tag
+    //so we fetch it and use it here.
+    let urlBase = document.getElementsByTagName('base')[0].getAttribute('href');
+
+    if (!urlBase) {
+      console.log('resetting base');
+      urlBase = '/';
+    }
+
+    //Due to the fact this is meant to run as a github pages page we cannot use normal routing strategies to load data from the url
+    //So we save and load it through a bare query param on the root.
     if (this.LinkChain().length > 0) {
-      history.pushState({ data: base64Data }, '', `/${base64Data}`);
+      history.pushState({ data: base64Data }, '', `${urlBase}?Chain=${base64Data}`);
     } else {
-      history.pushState({ data: base64Data }, '', `/`);
+      history.pushState({ data: base64Data }, '', `${urlBase}`);
     }
   }
 
