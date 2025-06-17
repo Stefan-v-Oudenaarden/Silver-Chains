@@ -5,7 +5,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouteReuseStrategy, provideRouter, withPreloading } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { withFormlyIonic } from '@ngx-formly/ionic';
-import { FormlyModule, provideFormlyCore } from '@ngx-formly/core';
+import { provideFormlyCore } from '@ngx-formly/core';
 import { provideMarkdown } from 'ngx-markdown';
 
 import { AppComponent } from './app/app.component';

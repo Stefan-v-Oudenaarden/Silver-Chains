@@ -47,6 +47,7 @@ export class LorempIpsumLink extends CustomSilverLink {
       defaultValue: 'paragraphs',
       props: {
         okText: 'Ok',
+        cancelText: 'Stop',
         label: 'What are we generating',
         required: false,
         options: [

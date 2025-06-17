@@ -29,7 +29,6 @@
     "@capacitor/keyboard": "7.0.1",
     "@capacitor/status-bar": "7.0.1",
     "@ionic/angular": "^8.0.0",
-    "@ngx-formly/bootstrap": "^7.0.0",
     "@ngx-formly/core": "^7.0.0",
     "@ngx-formly/ionic": "^7.0.0",
     "@ngx-popovers/core": "^19.0.0",

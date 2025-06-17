@@ -51,6 +51,8 @@ export class UUIDLink extends CustomSilverLink {
       type: 'select',
       defaultValue: 'uuidv4',
       props: {
+        okText: 'Ok',
+        cancelText: 'Stop',
         label: 'UUID Type',
         required: false,
         options: [
@@ -71,6 +73,8 @@ export class UUIDLink extends CustomSilverLink {
       props: {
         label: 'Namespace (for V3/V5)',
         required: false,
+        okText: 'Ok',
+        cancelText: 'Stop',
         options: [
           { label: 'DNS Namespace', value: 'dns' },
           { label: 'URL Namespace', value: 'url' },
