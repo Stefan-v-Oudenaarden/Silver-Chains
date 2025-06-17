@@ -24,60 +24,46 @@ export class LorempIpsumLink extends CustomSilverLink {
   override SettingsFormOptions = undefined;
   override SettingsForm: FormlyFieldConfig[] = [
     {
-      fieldGroupClassName: 'formly-display-flex',
-      fieldGroup: [
-        {
-          className: 'formly-flex-1',
-          key: 'Static',
-          type: 'checkbox',
-          defaultValue: true,
-          props: {
-            label: 'Keep the same output',
-            required: false,
-          },
-        },
-        {
-          className: 'formly-flex-1',
-          key: 'Append',
-          type: 'checkbox',
-          defaultValue: false,
-          props: {
-            label: 'Append instead of overwrite?',
-            required: false,
-          },
-        },
-      ],
+      key: 'Static',
+      type: 'checkbox',
+      defaultValue: true,
+      props: {
+        label: 'Keep the same output',
+        required: false,
+      },
     },
-
     {
-      fieldGroupClassName: 'formly-display-flex',
-      fieldGroup: [
-        {
-          className: 'formly-flex-1',
-          key: 'Type',
-          type: 'select',
-          defaultValue: 'paragraphs',
-          props: {
-            label: 'What are we generating',
-            required: false,
-            options: [
-              { label: 'Words', value: 'words' },
-              { label: 'Sentences', value: 'sentences' },
-              { label: 'Paragraphs', value: 'paragraphs' },
-            ],
-          },
-        },
-        {
-          className: 'formly-flex-1',
-          key: 'Amount',
-          type: 'number',
-          defaultValue: 3,
-          props: {
-            label: 'How much',
-            required: false,
-          },
-        },
-      ],
+      key: 'Append',
+      type: 'checkbox',
+      defaultValue: false,
+      props: {
+        label: 'Append instead of overwrite?',
+        required: false,
+      },
+    },
+    {
+      key: 'Type',
+      type: 'select',
+      defaultValue: 'paragraphs',
+      props: {
+        okText: 'Ok',
+        label: 'What are we generating',
+        required: false,
+        options: [
+          { label: 'Words', value: 'words' },
+          { label: 'Sentences', value: 'sentences' },
+          { label: 'Paragraphs', value: 'paragraphs' },
+        ],
+      },
+    },
+    {
+      key: 'Amount',
+      type: 'number',
+      defaultValue: 3,
+      props: {
+        label: 'How much',
+        required: false,
+      },
     },
   ];
 

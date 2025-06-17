@@ -4,8 +4,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouteReuseStrategy, provideRouter, withPreloading } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
-import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyModule } from '@ngx-formly/core';
+import { withFormlyIonic } from '@ngx-formly/ionic';
+import { FormlyModule, provideFormlyCore } from '@ngx-formly/core';
 import { provideMarkdown } from 'ngx-markdown';
 
 import { AppComponent } from './app/app.component';
@@ -13,11 +13,12 @@ import { routes } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom([ReactiveFormsModule, FormlyBootstrapModule, FormlyModule.forRoot()]),
+    importProvidersFrom([ReactiveFormsModule]),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideAnimations(),
     provideMarkdown(),
+    provideFormlyCore(withFormlyIonic()),
   ],
 });

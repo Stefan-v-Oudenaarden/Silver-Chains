@@ -29,32 +29,25 @@ export class RandomNumbersLink extends CustomSilverLink {
         required: false,
       },
     },
-
     {
-      fieldGroupClassName: 'formly-display-flex',
-      fieldGroup: [
-        {
-          className: 'formly-flex-1',
-          key: 'Low',
-          type: 'number',
-          defaultValue: 1,
-          props: {
-            label: 'Low (Inclusive)',
-            required: true,
-          },
-        },
-        {
-          className: 'formly-flex-1',
-          key: 'High',
-          type: 'number',
-          defaultValue: 6,
-          props: {
-            label: 'High (Inclusive)',
-            required: true,
-          },
-        },
-      ],
+      key: 'Low',
+      type: 'number',
+      defaultValue: 1,
+      props: {
+        label: 'Low (Inclusive)',
+        required: true,
+      },
     },
+    {
+      key: 'High',
+      type: 'number',
+      defaultValue: 6,
+      props: {
+        label: 'High (Inclusive)',
+        required: true,
+      },
+    },
+
     {
       key: 'Amount',
       type: 'number',
