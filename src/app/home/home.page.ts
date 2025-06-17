@@ -1,26 +1,46 @@
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, computed, inject, isDevMode, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import {
+  IonAccordion,
+  IonAccordionGroup,
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonModal,
+  IonSearchbar,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular/standalone';
 import { SplitAreaComponent, SplitComponent } from 'angular-split';
-import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { addIcons } from 'ionicons';
+import { chevronDownSharp, chevronUpSharp, closeCircleSharp, saveSharp, sendSharp, trashSharp } from 'ionicons/icons';
+import { map } from 'rxjs';
+import { SaveChainComponent } from 'src/components/panels/save-chain/save-chain.component';
+import { LinkChainService } from 'src/services/linkchain.service';
 import { LinksService, SilverLink, SilverLinkData } from 'src/services/links.service';
-import { LinkChainService, SavedLinkChainLink } from 'src/services/linkchain.service';
+
+import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
 import { InputPanelComponent } from '../../components/panels/input-panel/input-panel.component';
 import { OutputPanelComponent } from '../../components/panels/output-panel/output-panel.component';
-import { LinkItemComponent } from '../../components/links/link-item/link-item.component';
-import { trashSharp, chevronDownSharp, chevronUpSharp, sendSharp, pushOutline } from 'ionicons/icons';
-import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonButtons, IonIcon, IonSearchbar } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [
+    IonToolbar,
+    IonTitle,
+    IonHeader,
+    IonContent,
+    IonModal,
     IonSearchbar,
     IonIcon,
     IonButtons,
@@ -37,6 +57,7 @@ import { Title } from '@angular/platform-browser';
     OutputPanelComponent,
     LinkItemComponent,
     FormsModule,
+    SaveChainComponent,
   ],
 })
 export class HomePage {
@@ -57,6 +78,7 @@ export class HomePage {
   public SilverChainOutput = signal<SilverLinkData>(new SilverLinkData(''));
   public AllChainLinksSettingsShow = signal<boolean>(false);
   public LinkSearchString = signal<string | undefined>(undefined);
+  public isSaveChainModalOpen = signal<boolean>(true);
 
   public SearchResult = computed(() => {
     let searchString = this.LinkSearchString();
@@ -99,7 +121,7 @@ export class HomePage {
   });
 
   constructor() {
-    addIcons({ trashSharp, chevronDownSharp, chevronUpSharp, sendSharp });
+    addIcons({ trashSharp, chevronDownSharp, chevronUpSharp, sendSharp, saveSharp, closeCircleSharp });
 
     if (isDevMode()) {
       for (let link of this.LinksService.DevLinks) {
@@ -123,6 +145,10 @@ export class HomePage {
         this.LinkChainService.ImportChain(decodedData);
       }
     });
+  }
+
+  SaveChain() {
+    this.isSaveChainModalOpen.set(true);
   }
 
   async UpdateUrl() {

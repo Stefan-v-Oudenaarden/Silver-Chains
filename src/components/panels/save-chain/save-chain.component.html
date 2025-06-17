@@ -1,0 +1,22 @@
+<ion-content>
+  <ion-list>
+    @for (chain of storedChains(); track $index) {
+    <ion-item lines="none" (click)="ImportChain(chain)">
+      <ion-label>
+        <strong>{{ chain.Name }}</strong> <br />
+        <ion-note class="ion-text-wrap">{{ chain.Description }}</ion-note>
+      </ion-label>
+      <ion-button fill="clear" (click)="removeChain(chain)">
+        <ion-icon color="danger" size="large" slot="icon-only" name="trash-sharp"></ion-icon>
+      </ion-button>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>
+
+<ion-buttons class="ion-padding save-buttons">
+  <ion-input #inputElement placeholder="Chain Name" [(ngModel)]="StoredChainName" (keyup.enter)="storeChain()"></ion-input>
+  <ion-button (click)="storeChain()">
+    <ion-icon size="large" slot="icon-only" name="save-sharp"></ion-icon>
+  </ion-button>
+</ion-buttons>

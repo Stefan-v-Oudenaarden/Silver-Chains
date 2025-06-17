@@ -1,0 +1,25 @@
+ion-content {
+  height: calc(100% - 80px);
+}
+
+ion-item {
+  cursor: pointer;
+  user-select: none;
+}
+
+ion-item:hover {
+  --background: var(--ion-color-light-shade);
+}
+
+.save-buttons {
+  padding-right: 34px;
+
+  ion-input {
+    --highlight-color: unset !important;
+    --background: var(--ion-color-light-shade);
+    --border-radius: 8px;
+
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+}

@@ -59,6 +59,9 @@
           <ion-button (click)="RunSilverLinkChain()" title="Run">
             <ion-icon slot="icon-only" name="send-sharp"></ion-icon>
           </ion-button>
+          <ion-button (click)="SaveChain()" title="Save Chain For Later">
+            <ion-icon slot="icon-only" name="save-sharp"></ion-icon>
+          </ion-button>
           <ion-button (click)="ToggleShowHideAllLinkSettings()" title="Show/Hide all Settings">
             @if(AllChainLinksSettingsShow()) {
             <ion-icon slot="icon-only" name="chevron-up-sharp"></ion-icon>
@@ -112,3 +115,19 @@
     </as-split-area>
   </as-split>
 </div>
+
+<ion-modal [isOpen]="isSaveChainModalOpen()" (didDismiss)="isSaveChainModalOpen.set(false)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title><h3>Save / Load Chains</h3></ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="isSaveChainModalOpen.set(false)">
+            <ion-icon slot="icon-only" name="close-circle-sharp"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content> <app-save-chain (ChainChanged)="RunSilverLinkChain()"></app-save-chain> </ion-content>
+  </ng-template>
+</ion-modal>
