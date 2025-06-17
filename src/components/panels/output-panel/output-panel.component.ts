@@ -1,11 +1,11 @@
 import { Component, computed, ElementRef, inject, input, OnInit, output, viewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IonButton, IonButtons, IonIcon, IonTextarea } from '@ionic/angular/standalone';
-import { MarkdownComponent } from 'ngx-markdown';
 import { addIcons } from 'ionicons';
-import { copySharp, exitSharp, pushSharp } from 'ionicons/icons';
-import { SilverLinkData } from 'src/services/links.service';
+import { copySharp, pushSharp, saveSharp } from 'ionicons/icons';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { MarkdownComponent } from 'ngx-markdown';
+import { SilverLinkData } from 'src/services/links.service';
 
 import { SimpleTableComponent } from 'src/components/simple-table/simple-table.component';
 
@@ -51,7 +51,7 @@ export class OutputPanelComponent implements OnInit {
   });
 
   constructor() {
-    addIcons({ copySharp, exitSharp, pushSharp });
+    addIcons({ copySharp, saveSharp, pushSharp });
   }
 
   ngOnInit() {}

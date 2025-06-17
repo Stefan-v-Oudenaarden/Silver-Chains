@@ -1,16 +1,17 @@
 .link-item {
-  background-color: var(--component-background-color);
+  min-height: 50px;
   color: var(--component-color);
-  border-bottom: 1px solid var(--ion-color-light-shade);
+  background-color: var(--component-background-color);
+
+  border-bottom: 2px solid var(--ion-color-primary-contrast);
 
   .link-item-header {
+    height: 48px;
     display: flex;
     justify-content: space-between;
 
-    height: 50px;
-
     ion-item {
-      --ion-item-background: var(--component-background-color);
+      --ion-item-background: transparent;
       ion-label {
         text-overflow: ellipsis;
         overflow: hidden;
@@ -19,13 +20,22 @@
       }
     }
 
+    ion-item::has(#parent:hover):hover {
+      --ion-item-background: var(--component-background-color-hover);
+    }
+
     ion-buttons {
-      height: 50px;
+      height: 48px;
     }
   }
 
   .link-item-settings {
     padding: 10px;
+
     color: var(--component-color);
   }
+}
+
+.link-item:hover {
+  background-color: var(--component-background-color-hover);
 }

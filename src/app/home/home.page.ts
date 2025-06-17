@@ -78,7 +78,7 @@ export class HomePage {
   public SilverChainOutput = signal<SilverLinkData>(new SilverLinkData(''));
   public AllChainLinksSettingsShow = signal<boolean>(false);
   public LinkSearchString = signal<string | undefined>(undefined);
-  public isSaveChainModalOpen = signal<boolean>(true);
+  public isSaveChainModalOpen = signal<boolean>(false);
 
   public SearchResult = computed(() => {
     let searchString = this.LinkSearchString();

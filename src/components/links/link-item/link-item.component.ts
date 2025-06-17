@@ -20,6 +20,7 @@ import { TooltipProvider } from '../link-tooltip/link-tooltip.component';
   providers: [TooltipProvider],
   host: {
     '[style.--component-background-color]': 'backgroundColor()',
+    '[style.--component-background-color-hover]': 'backgroundColorHover()',
     '[style.--component-color]': 'color()',
   },
 })
@@ -85,6 +86,27 @@ export class LinkItemComponent implements OnInit {
     }
 
     return GetCssVariableFromDocument('ion-color-light-tint');
+  });
+
+  private backgroundColorHover = computed(() => {
+    const link = this.Link();
+    if (link === undefined) {
+      return GetCssVariableFromDocument('ion-color-warning-shade');
+    }
+
+    if (this.IsInteractive()) {
+      if (!link.Disabled()) {
+        if (link.Error()) {
+          return GetCssVariableFromDocument('ion-color-danger-shade');
+        } else {
+          return GetCssVariableFromDocument('ion-color-success-shade');
+        }
+      } else {
+        return GetCssVariableFromDocument('ion-color-light-shade');
+      }
+    }
+
+    return GetCssVariableFromDocument('ion-color-light-shade');
   });
 
   private color = computed(() => {
