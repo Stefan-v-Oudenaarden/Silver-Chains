@@ -1,32 +1,38 @@
-import { Injectable, isDevMode, WritableSignal } from '@angular/core';
+import { Injectable, WritableSignal } from '@angular/core';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { SimpleTableData } from 'src/components/simple-table/simple-table.component';
-
+import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
+import { WordFrequencyLink } from 'src/SilverLinks/Analysis/WordFrequencyLink';
+import { AlternateCaseLink } from 'src/SilverLinks/Cases/AlternateCaseLink';
+import { SwapCaseLink } from 'src/SilverLinks/Cases/SwapCaseLink';
+import { ToCamelCaseLink } from 'src/SilverLinks/Cases/ToCamelCaseLink';
+import { ToKebabCaseLink } from 'src/SilverLinks/Cases/ToKebabCaseLink';
+import { ToLowerCaseLink } from 'src/SilverLinks/Cases/ToLowerCaseLink';
+import { ToSentenceCaseLink } from 'src/SilverLinks/Cases/ToSentenceCaseLink';
+import { ToSnakeCaseLink } from 'src/SilverLinks/Cases/ToSnakeCaseLink';
+import { ToTitleCaseLink } from 'src/SilverLinks/Cases/ToTitleCaseLink';
+import { ToUpperCaseLink } from 'src/SilverLinks/Cases/ToUpperCaseLink';
+import { ExtractDatesLink } from 'src/SilverLinks/Extraction/ExtractDatesLink';
+import { ExtractEmailsLink } from 'src/SilverLinks/Extraction/ExtractEmailsLink';
+import { ExtractNumbersLink } from 'src/SilverLinks/Extraction/ExtractNumbersLink';
+import { UniqueLinesLink } from 'src/SilverLinks/Extraction/UniqueLinesLink';
+import { UniqueWordsLink } from 'src/SilverLinks/Extraction/UniqueWordsLink';
+import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
+import { RandomNumbersLink } from 'src/SilverLinks/Generation/RandomNumbersLin';
+import { UUIDLink } from 'src/SilverLinks/Generation/UUIDLink';
 import { AsHtmlLink } from 'src/SilverLinks/Parsing/ASHtmlLink';
 import { AsJsonLink } from 'src/SilverLinks/Parsing/AsJsonLink';
 import { AsMarkdownLink } from 'src/SilverLinks/Parsing/AsMarkdownLink';
-import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/Splitting&Joining/SplittingJoining';
-import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/Transformation/SimpleTextEdits';
-import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
-import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
-import { UUIDLink } from 'src/SilverLinks/Generation/UUIDLink';
-
-import { RandomNumbersLink } from 'src/SilverLinks/Generation/RandomNumbersLin';
-import { ReverseLinesLink, ReverseTextLink } from 'src/SilverLinks/Sorting/ReverseTextLinks';
+import { AlphabetizeLinesLink } from 'src/SilverLinks/Sorting/AphabetizeLinesLink';
 import { RandomizeLinesLink, RandomizeTextLink } from 'src/SilverLinks/Sorting/RandomizeTextLinks';
+import { ReverseLinesLink, ReverseTextLink } from 'src/SilverLinks/Sorting/ReverseTextLinks';
+import { JoinTextLink, SplitTextLink } from 'src/SilverLinks/Splitting&Joining/SplittingJoining';
 import { AddLineNumbersLink, RemoveLineNumbersLink } from 'src/SilverLinks/Transformation/LineNumbersLink';
 import { PadLineLink } from 'src/SilverLinks/Transformation/PadLineLink';
-import { ExtractNumbersLink } from 'src/SilverLinks/Extraction/ExtractNumbersLink';
-import { ExtractEmailsLink } from 'src/SilverLinks/Extraction/ExtractEmailsLink';
-import { ExtractDatesLink } from 'src/SilverLinks/Extraction/ExtractDatesLink';
-import { UniqueLinesLink } from 'src/SilverLinks/Extraction/UniqueLinesLink';
-import { UniqueWordsLink } from 'src/SilverLinks/Extraction/UniqueWordsLink';
-import { AlphabetizeLinesLink } from 'src/SilverLinks/Sorting/AphabetizeLinesLink';
-import { WordFrequencyLink } from 'src/SilverLinks/Analysis/WordFrequencyLink';
-import { RemoveWhiteSpaceLink } from 'src/SilverLinks/Transformation/RemoveWhiteSpaceLink';
 import { RemoveInterpunctionLink } from 'src/SilverLinks/Transformation/RemoveInterpunctionLink';
-import { SwapCaseLink } from 'src/SilverLinks/Transformation/SwapCaseLink';
+import { RemoveWhiteSpaceLink } from 'src/SilverLinks/Transformation/RemoveWhiteSpaceLink';
+import { TrimTextLink } from 'src/SilverLinks/Transformation/TrimTextLink';
 
 export type SilverLinkTextElement = {
   Text?: string;
@@ -125,7 +131,13 @@ export class LinksService {
     //Cases
     new ToUpperCaseLink(),
     new ToLowerCaseLink(),
+    new AlternateCaseLink(),
     new SwapCaseLink(),
+    new ToSentenceCaseLink(),
+    new ToTitleCaseLink(),
+    new ToCamelCaseLink(),
+    new ToSnakeCaseLink(),
+    new ToKebabCaseLink(),
   ];
 
   constructor() {
@@ -133,6 +145,6 @@ export class LinksService {
     lorem.Settings.Static = true;
 
     // this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
-    this.DevLinks = [lorem];
+    this.DevLinks = [lorem, new ToTitleCaseLink()];
   }
 }

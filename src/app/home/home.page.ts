@@ -114,10 +114,10 @@ export class HomePage {
 
   public CategoriesDefaultState: Map<string, boolean> = new Map<string, boolean>([
     ['Generation', false],
-    ['Extraction', true],
-    ['Sorting', true],
-    ['Transformation', true],
-    ['Cases', false],
+    ['Extraction', false],
+    ['Sorting', false],
+    ['Transformation', false],
+    ['Cases', true],
     ['Splitting & Joining', false],
     ['Output', false],
   ]);
