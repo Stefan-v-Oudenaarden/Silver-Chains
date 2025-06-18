@@ -3,6 +3,17 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink, SilverLinkData } from 'src/services/links.service';
 import { v4 as uuidv4 } from 'uuid';
 
+function UnescapeUserInput(input: string): string {
+  input = input.replaceAll('\\n', '\n');
+  input = input.replaceAll('\\r', '\r');
+  input = input.replaceAll('\\t', '\t');
+  input = input.replaceAll('\\b', '\b');
+  input = input.replaceAll('\\f', '\f');
+  input = input.replaceAll("'", "'");
+
+  return input;
+}
+
 export class SplitTextLink implements SilverLink {
   public Error = signal<boolean>(false);
   public Output = signal<SilverLinkData>(new SilverLinkData(''));
@@ -14,12 +25,21 @@ export class SplitTextLink implements SilverLink {
   public Category: string = 'Splitting & Joining';
   public Description: string = 'Splits Text on newlines';
 
-  public HasSettings: boolean = false;
+  public HasSettings: boolean = true;
   public ShowSettings = signal<boolean>(false);
 
-  public Settings: any;
+  public Settings: { Splitter: string } = { Splitter: '\\n\\n' };
   public SettingsFormOptions = undefined;
-  public SettingsForm: FormlyFieldConfig[] = [];
+  public SettingsForm: FormlyFieldConfig[] = [
+    {
+      key: 'Splitter',
+      type: 'input',
+      defaultValue: '\\n\\n',
+      props: {
+        required: false,
+      },
+    },
+  ];
 
   public Run(Input: SilverLinkData): SilverLinkData {
     let output = new SilverLinkData('');
@@ -35,9 +55,11 @@ export class SplitTextLink implements SilverLink {
   SplitText(input: SilverLinkData): SilverLinkData {
     let output = new SilverLinkData();
 
+    const Splitter = UnescapeUserInput(this.Settings.Splitter);
+
     for (const entry of input.DataFields) {
       if (entry.Text !== undefined) {
-        const lines = entry.Text.split('\n');
+        const lines = entry.Text.split(Splitter);
 
         for (const line of lines) {
           if (line === '') {
@@ -73,12 +95,22 @@ export class JoinTextLink implements SilverLink {
   public Category: string = 'Splitting & Joining';
   public Description: string = 'Join all existing fields back into one field with newlines in between.';
 
-  public HasSettings: boolean = false;
+  public HasSettings: boolean = true;
   public ShowSettings = signal<boolean>(false);
 
-  public Settings: any;
+  public Settings: { Joiner: string } = { Joiner: '\\n\\n' };
   public SettingsFormOptions = undefined;
-  public SettingsForm: FormlyFieldConfig[] = [];
+  public SettingsForm: FormlyFieldConfig[] = [
+    {
+      key: 'Joiner',
+      type: 'input',
+      defaultValue: '\\n\\n',
+      props: {
+        label: 'Keep the same output',
+        required: false,
+      },
+    },
+  ];
 
   public Run(Input: SilverLinkData): SilverLinkData {
     let output = new SilverLinkData('');
@@ -102,7 +134,8 @@ export class JoinTextLink implements SilverLink {
     }
 
     if (allTextFields.length !== 0) {
-      output = new SilverLinkData(allTextFields.join('\n\n'));
+      const joiner = UnescapeUserInput(this.Settings.Joiner);
+      output = new SilverLinkData(allTextFields.join(joiner));
     }
 
     return output;

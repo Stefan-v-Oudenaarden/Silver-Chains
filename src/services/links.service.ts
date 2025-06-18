@@ -76,7 +76,7 @@ export class LinksService {
     new TextAnalysisLink(),
 
     //Generation
-    new CopyPastaLink(),
+    // new CopyPastaLink(),
     new LorempIpsumLink(),
     new UUIDLink(),
     new RandomNumbersLink(),
@@ -106,6 +106,7 @@ export class LinksService {
     let lorem = new LorempIpsumLink();
     lorem.Settings.Static = true;
 
-    this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
+    // this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
+    this.DevLinks = [lorem, new SplitTextLink(), new JoinTextLink()];
   }
 }
