@@ -17,7 +17,7 @@ export class AsJsonLink extends ComplexSilverLink {
         newEntry.Object = JSON.parse(entry.Text);
       }
     } catch (e: any) {
-      console.log(e);
+      console.warn(e);
       newEntry.Text = e;
     }
 

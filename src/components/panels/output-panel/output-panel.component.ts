@@ -60,13 +60,11 @@ export class OutputPanelComponent implements OnInit {
     try {
       let text = '';
       if (this.IsSimpleTextOutput()) {
-        console.log('copy');
         text = this.TextOutput();
       } else {
         const element = document.getElementById('multi-output-content');
         if (element) {
           text = element.textContent || '';
-          console.log(text);
         }
       }
 
@@ -80,13 +78,11 @@ export class OutputPanelComponent implements OnInit {
     try {
       let text = '';
       if (this.IsSimpleTextOutput()) {
-        console.log('copy');
         text = this.TextOutput();
       } else {
         const element = document.getElementById('multi-output-content');
         if (element) {
           text = element.textContent || '';
-          console.log(text);
         }
       }
       this.CopyOutputToInputSignal.emit(text);

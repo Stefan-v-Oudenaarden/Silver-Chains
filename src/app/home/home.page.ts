@@ -1,7 +1,8 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, computed, inject, isDevMode, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -22,7 +23,7 @@ import {
 import { SplitAreaComponent, SplitComponent } from 'angular-split';
 import { addIcons } from 'ionicons';
 import { chevronDownSharp, chevronUpSharp, closeCircleSharp, saveSharp, sendSharp, trashSharp } from 'ionicons/icons';
-import { map } from 'rxjs';
+import { debounce, debounceTime, distinctUntilChanged, interval, map, Observable, switchMap, timer } from 'rxjs';
 import { SaveChainComponent } from 'src/components/panels/save-chain/save-chain.component';
 import { LinkChainService } from 'src/services/linkchain.service';
 import { LinksService, SilverLink, SilverLinkData } from 'src/services/links.service';
@@ -75,10 +76,24 @@ export class HomePage {
 
   public UserInput = signal<SilverLinkData>(new SilverLinkData(''));
   public InputValue = signal<string | undefined>(undefined);
-  public SilverChainOutput = signal<SilverLinkData>(new SilverLinkData(''));
   public AllChainLinksSettingsShow = signal<boolean>(false);
   public LinkSearchString = signal<string | undefined>(undefined);
   public isSaveChainModalOpen = signal<boolean>(false);
+
+  public SilverChainOutputTriggers = signal<{ input: SilverLinkData; id: string }>({ input: new SilverLinkData(''), id: 'startingValue' });
+  public SilverChainOutput$ = toObservable(this.SilverChainOutputTriggers).pipe(
+    debounceTime(50),
+    distinctUntilChanged(),
+    switchMap((outputTrigger) => {
+      return new Observable<SilverLinkData>((sub) => {
+        const output = this.LinkChainService.ProcessInput(outputTrigger.input);
+        sub.next(output);
+        sub.complete();
+      });
+    })
+  );
+
+  public SilverChainOutput = toSignal(this.SilverChainOutput$);
 
   public SearchResult = computed(() => {
     let searchString = this.LinkSearchString();
@@ -160,7 +175,6 @@ export class HomePage {
     let urlBase = document.getElementsByTagName('base')[0].getAttribute('href');
 
     if (!urlBase) {
-      console.log('resetting base');
       urlBase = '/';
     }
 
@@ -184,9 +198,8 @@ export class HomePage {
 
   RunSilverLinkChain() {
     const input = this.UserInput();
-    const output = this.LinkChainService.ProcessInput(input);
 
-    this.SilverChainOutput.set(output);
+    this.SilverChainOutputTriggers.set({ input: input, id: uuidv4() });
     this.UpdateUrl();
     this.UpdatePageTitle();
   }

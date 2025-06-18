@@ -13,7 +13,7 @@ import { ToastService } from 'src/services/toast.service';
   styleUrls: ['./input-panel.component.scss'],
   imports: [IonSpinner, IonButtons, IonButton, IonIcon, IonTextarea, FormsModule],
 })
-export class InputPanelComponent implements OnInit {
+export class InputPanelComponent {
   //Component IO
   public InputText = input<string | undefined>(undefined);
   public UserInput = output<SilverLinkData>();
@@ -38,21 +38,11 @@ export class InputPanelComponent implements OnInit {
     addIcons({ copySharp, trashSharp, enterSharp });
   }
 
-  ngOnInit() {
-    //     this.InputValue
-    //       .set(`Do elit fugiat laborum laborum aliqua Lorem ea aliquip. Occaecat amet non ullamco culpa ullamco ut anim consectetur ullamco proident laborum ut adipisicing incididunt. Id adipisicing culpa esse do nulla aute dolore consectetur quis aute elit. Ad proident consequat dolor dolor voluptate non commodo tempor aute dolor in fugiat.
-    // Ut anim consectetur non incididunt culpa incididunt excepteur. Eiusmod dolor elit reprehenderit sint. Veniam nulla quis elit anim amet laboris.
-    // Amet minim consequat non duis minim est voluptate duis elit voluptate elit aliquip. Enim aliqua tempor qui sint dolore consectetur sit adipisicing pariatur. Cupidatat tempor mollit est anim veniam duis mollit deserunt deserunt quis dolor anim nisi eiusmod. Consectetur in elit dolor adipisicing aute amet Lorem elit culpa ad aute. Labore sunt non sint qui reprehenderit reprehenderit pariatur officia laborum reprehenderit incididunt. Veniam excepteur et pariatur do aliquip ullamco in velit culpa enim mollit consequat magna eiusmod. Aute deserunt Lorem esse nulla est magna in deserunt eiusmod.`);
-    //     this.PushUserInput(this.InputValue());
-  }
-
   public PushUserInput(input: string) {
     this.UserInput.emit(new SilverLinkData(input));
   }
 
   public onTextAreaInput(event: any) {
-    console.log(event);
-
     const input = event.detail.value;
 
     if (input === undefined) {
@@ -64,6 +54,7 @@ export class InputPanelComponent implements OnInit {
 
   public EmptyInput() {
     this.InputValue.set('');
+    this.PushUserInput('');
   }
 
   public async CopyText() {
