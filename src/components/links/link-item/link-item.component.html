@@ -34,8 +34,8 @@
     </ion-buttons>
     } }
   </div>
-  @if(IsInteractive() && Link().HasSettings && Link().ShowSettings()) {
-  <div class="link-item-settings">
+  @if(IsInteractive() && Link().HasSettings) {
+  <div class="link-item-settings" [@expandCollapse]="settingsAnimationState()">
     <formly-form [model]="model" [fields]="fields()" [options]="options"></formly-form>
   </div>
   }

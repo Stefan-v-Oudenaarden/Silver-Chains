@@ -11,13 +11,40 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { GetCssVariableFromDocument } from 'src/app/helpers';
 import { SilverLink } from 'src/services/links.service';
 import { TooltipProvider } from '../link-tooltip/link-tooltip.component';
+import { NgClass } from '@angular/common';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-link-item',
   templateUrl: './link-item.component.html',
   styleUrls: ['./link-item.component.scss'],
-  imports: [IonItem, IonLabel, IonIcon, IonButton, IonButtons, FormlyForm, NgxTooltip],
+  imports: [IonItem, IonLabel, IonIcon, IonButton, IonButtons, FormlyForm, NgxTooltip, NgClass],
   providers: [TooltipProvider],
+  animations: [
+    trigger('expandCollapse', [
+      state(
+        'collapsed',
+        style({
+          height: '0px',
+          minHeight: '0',
+          padding: '0 10px',
+          opacity: 0,
+          overflow: 'hidden',
+        })
+      ),
+      state(
+        'expanded',
+        style({
+          height: '*',
+          minHeight: '*',
+          padding: '10px',
+          opacity: 1,
+          overflow: 'visible',
+        })
+      ),
+      transition('collapsed <=> expanded', [animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)')]),
+    ]),
+  ],
   host: {
     '[style.--component-background-color]': 'backgroundColor()',
     '[style.--component-background-color-hover]': 'backgroundColorHover()',
@@ -64,6 +91,12 @@ export class LinkItemComponent implements OnInit {
     }
 
     return newFields;
+  });
+
+  // Animation state computed property
+  public settingsAnimationState = computed(() => {
+    const link = this.Link();
+    return link?.ShowSettings?.() ? 'expanded' : 'collapsed';
   });
 
   //CSS Variables

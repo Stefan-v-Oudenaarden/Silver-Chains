@@ -30,9 +30,10 @@
   }
 
   .link-item-settings {
-    padding: 10px;
-
     color: var(--component-color);
+    // Remove the fixed padding since it's now handled by the animation
+    // The animation will handle padding transitions
+    box-sizing: border-box;
   }
 }
 

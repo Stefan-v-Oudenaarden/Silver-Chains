@@ -31,7 +31,7 @@
         <ion-accordion-group [value]="category">
           <ion-accordion [value]="CategoriesDefaultState.get(category) ? category : false">
             <ion-item slot="header" color="secondary" lines="none">
-              <ion-label>{{category}}</ion-label>
+              <ion-label>{{ category }}</ion-label>
             </ion-item>
             <div class="" slot="content">
               @for (link of LinksByCategory().get(category); track $index) {
