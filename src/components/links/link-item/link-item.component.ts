@@ -28,7 +28,6 @@ import { TooltipProvider } from '../link-tooltip/link-tooltip.component';
           minHeight: '0',
           padding: '0 10px',
           opacity: 0,
-          overflow: 'hidden',
         })
       ),
       state(
@@ -38,7 +37,6 @@ import { TooltipProvider } from '../link-tooltip/link-tooltip.component';
           minHeight: '*',
           padding: '10px',
           opacity: 1,
-          overflow: 'visible',
         })
       ),
       transition('collapsed <=> expanded', [animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)')]),
