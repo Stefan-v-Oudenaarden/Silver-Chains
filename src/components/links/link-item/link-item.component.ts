@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, computed, effect, input, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
@@ -11,14 +12,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { GetCssVariableFromDocument } from 'src/app/helpers';
 import { SilverLink } from 'src/services/links.service';
 import { TooltipProvider } from '../link-tooltip/link-tooltip.component';
-import { NgClass } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-link-item',
   templateUrl: './link-item.component.html',
   styleUrls: ['./link-item.component.scss'],
-  imports: [IonItem, IonLabel, IonIcon, IonButton, IonButtons, FormlyForm, NgxTooltip, NgClass],
+  imports: [IonItem, IonLabel, IonIcon, IonButton, IonButtons, FormlyForm, NgxTooltip],
   providers: [TooltipProvider],
   animations: [
     trigger('expandCollapse', [
