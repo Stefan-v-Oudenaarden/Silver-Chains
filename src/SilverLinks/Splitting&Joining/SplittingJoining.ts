@@ -1,18 +1,8 @@
 import { input, signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { UnescapeUserInput } from 'src/app/helpers';
 import { SilverLink, SilverLinkData } from 'src/services/links.service';
 import { v4 as uuidv4 } from 'uuid';
-
-function UnescapeUserInput(input: string): string {
-  input = input.replaceAll('\\n', '\n');
-  input = input.replaceAll('\\r', '\r');
-  input = input.replaceAll('\\t', '\t');
-  input = input.replaceAll('\\b', '\b');
-  input = input.replaceAll('\\f', '\f');
-  input = input.replaceAll("'", "'");
-
-  return input;
-}
 
 export class SplitTextLink implements SilverLink {
   public Error = signal<boolean>(false);
@@ -36,6 +26,7 @@ export class SplitTextLink implements SilverLink {
       type: 'input',
       defaultValue: '\\n\\n',
       props: {
+        label: 'Delimiter',
         required: false,
       },
     },
@@ -106,7 +97,7 @@ export class JoinTextLink implements SilverLink {
       type: 'input',
       defaultValue: '\\n\\n',
       props: {
-        label: 'Keep the same output',
+        label: 'Delimiter',
         required: false,
       },
     },

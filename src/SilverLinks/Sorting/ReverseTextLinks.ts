@@ -5,7 +5,7 @@ import { BasicSilverLink } from '../BaseLinkImplementation';
 
 export class ReverseTextLink extends BasicSilverLink {
   override Name = 'Reverse';
-  override Category = 'Transformation';
+  override Category = 'Sorting';
   override Description = `Reverses the text. 
   
   **Input**: A sample sentence.   
@@ -21,7 +21,7 @@ export class ReverseTextLink extends BasicSilverLink {
 
 export class ReverseLinesLink extends BasicSilverLink {
   override Name = 'Reverse Lines';
-  override Category = 'Transformation';
+  override Category = 'Sorting';
   override Description = `Reverses the line order in a text. 
   
   **Input**: 

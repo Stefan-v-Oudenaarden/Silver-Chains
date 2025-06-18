@@ -11,12 +11,22 @@ import { ToLowerCaseLink, ToUpperCaseLink, TrimTextLink } from 'src/SilverLinks/
 import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
 import { TextAnalysisLink } from 'src/SilverLinks/Analysis/TextAnalysisLink';
 import { UUIDLink } from 'src/SilverLinks/Generation/UUIDLink';
-import { CopyPastaLink } from 'src/SilverLinks/Generation/CopyPastaLink';
+
 import { RandomNumbersLink } from 'src/SilverLinks/Generation/RandomNumbersLin';
-import { ReverseLinesLink, ReverseTextLink } from 'src/SilverLinks/Transformation/ReverseTextLinks';
-import { RandomizeLinesLink, RandomizeTextLink } from 'src/SilverLinks/Transformation/RandomizeTextLinks';
-import { LineNumbersLink } from 'src/SilverLinks/Transformation/LineNumbersLink';
+import { ReverseLinesLink, ReverseTextLink } from 'src/SilverLinks/Sorting/ReverseTextLinks';
+import { RandomizeLinesLink, RandomizeTextLink } from 'src/SilverLinks/Sorting/RandomizeTextLinks';
+import { AddLineNumbersLink, RemoveLineNumbersLink } from 'src/SilverLinks/Transformation/LineNumbersLink';
 import { PadLineLink } from 'src/SilverLinks/Transformation/PadLineLink';
+import { ExtractNumbersLink } from 'src/SilverLinks/Extraction/ExtractNumbersLink';
+import { ExtractEmailsLink } from 'src/SilverLinks/Extraction/ExtractEmailsLink';
+import { ExtractDatesLink } from 'src/SilverLinks/Extraction/ExtractDatesLink';
+import { UniqueLinesLink } from 'src/SilverLinks/Extraction/UniqueLinesLink';
+import { UniqueWordsLink } from 'src/SilverLinks/Extraction/UniqueWordsLink';
+import { AlphabetizeLinesLink } from 'src/SilverLinks/Sorting/AphabetizeLinesLink';
+import { WordFrequencyLink } from 'src/SilverLinks/Analysis/WordFrequencyLink';
+import { RemoveWhiteSpaceLink } from 'src/SilverLinks/Transformation/RemoveWhiteSpaceLink';
+import { RemoveInterpunctionLink } from 'src/SilverLinks/Transformation/RemoveInterpunctionLink';
+import { SwapCaseLink } from 'src/SilverLinks/Transformation/SwapCaseLink';
 
 export type SilverLinkTextElement = {
   Text?: string;
@@ -74,9 +84,9 @@ export class LinksService {
   public Links: SilverLink[] = [
     //Analysis
     new TextAnalysisLink(),
+    new WordFrequencyLink(),
 
     //Generation
-    // new CopyPastaLink(),
     new LorempIpsumLink(),
     new UUIDLink(),
     new RandomNumbersLink(),
@@ -90,16 +100,32 @@ export class LinksService {
     new SplitTextLink(),
     new JoinTextLink(),
 
-    //Transformation
-    new ToUpperCaseLink(),
-    new ToLowerCaseLink(),
-    new TrimTextLink(),
+    //Extraction
+    new ExtractNumbersLink(),
+    new ExtractEmailsLink(),
+    new ExtractDatesLink(),
+    new UniqueLinesLink(),
+    new UniqueWordsLink(),
+
+    //Sorting
     new ReverseTextLink(),
     new ReverseLinesLink(),
     new RandomizeTextLink(),
     new RandomizeLinesLink(),
-    new LineNumbersLink(),
+    new AlphabetizeLinesLink(),
+
+    //Transformation
     new PadLineLink(),
+    new TrimTextLink(),
+    new RemoveWhiteSpaceLink(),
+    new RemoveInterpunctionLink(),
+    new AddLineNumbersLink(),
+    new RemoveLineNumbersLink(),
+
+    //Cases
+    new ToUpperCaseLink(),
+    new ToLowerCaseLink(),
+    new SwapCaseLink(),
   ];
 
   constructor() {
@@ -107,6 +133,6 @@ export class LinksService {
     lorem.Settings.Static = true;
 
     // this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
-    this.DevLinks = [lorem, new SplitTextLink(), new JoinTextLink()];
+    this.DevLinks = [lorem];
   }
 }

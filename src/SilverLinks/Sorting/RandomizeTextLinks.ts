@@ -6,7 +6,7 @@ import { ArrayShuffle } from 'src/app/helpers';
 
 export class RandomizeTextLink extends BasicSilverLink {
   override Name = 'Randomize';
-  override Category = 'Transformation';
+  override Category = 'Sorting';
   override Description = `Randomizes the text. 
   
   **Input**: A sample sentence.   
@@ -22,7 +22,7 @@ export class RandomizeTextLink extends BasicSilverLink {
 
 export class RandomizeLinesLink extends BasicSilverLink {
   override Name = 'Randomize Lines';
-  override Category = 'Transformation';
+  override Category = 'Sorting';
   override Description = `Converts text into lower case. 
   
    **Input**: 

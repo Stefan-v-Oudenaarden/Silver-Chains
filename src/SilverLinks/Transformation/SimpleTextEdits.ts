@@ -5,7 +5,7 @@ import { BasicSilverLink } from '../BaseLinkImplementation';
 
 export class ToLowerCaseLink extends BasicSilverLink {
   override Name = 'To Lower Case';
-  override Category = 'Transformation';
+  override Category = 'Cases';
   override Description = `Converts text into lower case. 
   
   **Input**: A sentence with SOME Upper Case letters.   
@@ -21,7 +21,7 @@ export class ToLowerCaseLink extends BasicSilverLink {
 
 export class ToUpperCaseLink extends BasicSilverLink {
   override Name = 'To Upper Case';
-  override Category = 'Transformation';
+  override Category = 'Cases';
   override Description = `Converts text into upper case. 
   
   **Input**: A sentence with SOME Upper Case letters.  
@@ -78,7 +78,7 @@ export class TrimTextLink extends BasicSilverLink {
       }
     }
 
-    return trimmedText;
+    return trimmedText.trim();
   }
   public override New(): SilverLink {
     return new TrimTextLink();

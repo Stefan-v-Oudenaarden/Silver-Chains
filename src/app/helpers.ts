@@ -59,3 +59,26 @@ export function ArrayShuffle(input: any[]) {
   }
   return input;
 }
+
+export function UnescapeUserInput(input: string): string {
+  input = input.replaceAll('\\n', '\n');
+  input = input.replaceAll('\\r', '\r');
+  input = input.replaceAll('\\t', '\t');
+  input = input.replaceAll('\\b', '\b');
+  input = input.replaceAll('\\f', '\f');
+  input = input.replaceAll("'", "'");
+
+  return input;
+}
+
+export function RemovePunctuation(input: string): string {
+  return input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+}
+
+export function RemoveNewLines(input: string): string {
+  return input.replace(/\n/g, ' ');
+}
+
+export function RemoveQuotes(input: string): string {
+  return input.replace(/[\'\"‘’“”]/g, ' ');
+}
