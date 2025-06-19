@@ -50,3 +50,17 @@ $prefix: 'mo-';
     background-color: var(--tooltip-arrow-color, black) !important;
   }
 }
+
+//Highlight colours for Find Links
+
+span.highlight-1 {
+  background-color: var(--ion-color-secondary);
+}
+
+span.highlight-2 {
+  background-color: var(--ion-color-tertiary);
+}
+
+span.highlight-3 {
+  background-color: var(--ion-color-success);
+}

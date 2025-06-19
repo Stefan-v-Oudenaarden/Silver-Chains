@@ -24,6 +24,8 @@ import { UUIDLink } from 'src/SilverLinks/Generation/UUIDLink';
 import { AsHtmlLink } from 'src/SilverLinks/Parsing/ASHtmlLink';
 import { AsJsonLink } from 'src/SilverLinks/Parsing/AsJsonLink';
 import { AsMarkdownLink } from 'src/SilverLinks/Parsing/AsMarkdownLink';
+import { RegexSearchLink } from 'src/SilverLinks/Search&Replace/RegexSearchLink';
+import { SearchReplaceLink } from 'src/SilverLinks/Search&Replace/SearchReplaceLink';
 import { AlphabetizeLinesLink } from 'src/SilverLinks/Sorting/AphabetizeLinesLink';
 import { RandomizeLinesLink, RandomizeTextLink } from 'src/SilverLinks/Sorting/RandomizeTextLinks';
 import { ReverseLinesLink, ReverseTextLink } from 'src/SilverLinks/Sorting/ReverseTextLinks';
@@ -97,6 +99,10 @@ export class LinksService {
     new UUIDLink(),
     new RandomNumbersLink(),
 
+    //Search and Replace
+    new SearchReplaceLink(),
+    new RegexSearchLink(),
+
     //Parsing
     new AsMarkdownLink(),
     new AsJsonLink(),
@@ -145,6 +151,6 @@ export class LinksService {
     lorem.Settings.Static = true;
 
     // this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
-    this.DevLinks = [lorem, new ToTitleCaseLink()];
+    this.DevLinks = [lorem, new RegexSearchLink()];
   }
 }
