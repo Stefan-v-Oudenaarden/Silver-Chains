@@ -28,10 +28,13 @@
     margin-bottom: 1.5px;
 
     ion-searchbar {
+      border-bottom: 3px solid var(--ion-color-primary-contrast);
       padding: 0px;
       --box-shadow: unset;
       margin: auto;
-      height: 50px;
+      height: 40px;
+
+      --border-radius: 0px;
 
       --background: var(--ion-color-secondary);
       --color: var(--ion-color-primary-contrast);
@@ -49,7 +52,12 @@
     ion-accordion-group {
       ion-accordion {
         ion-item {
-          height: 50px;
+          ion-label {
+            margin-top: 0px;
+          }
+
+          height: 40px;
+          border-bottom: 2px solid var(--ion-color-primary-contrast);
         }
       }
     }
