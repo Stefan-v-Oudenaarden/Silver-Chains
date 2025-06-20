@@ -23,9 +23,9 @@
     <ion-textarea autoGrow="true" [value]="output.Text + '\n'"> </ion-textarea>
     } @if(output.Image !== undefined) {
     <img [src]="output.Image" />
-    } @if(output.HTMLString !== undefined) {
+    } @if(output.HTML !== undefined) {
     <div class="output-container">
-      <div [innerHTML]="ConvertSafeHtml(output.HTMLString)"></div>
+      <div [innerHTML]="output.HTML"></div>
     </div>
     } @if(output.Markdown !== undefined) {
     <div class="output-container">

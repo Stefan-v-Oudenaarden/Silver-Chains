@@ -118,7 +118,8 @@ export class HomePage {
     ['Extraction', false],
     ['Sorting', false],
     ['Transformation', false],
-    ['Cases', true],
+    ['Cases', false],
+    ['Cypher', true],
     ['Splitting & Joining', false],
     ['Output', false],
   ]);

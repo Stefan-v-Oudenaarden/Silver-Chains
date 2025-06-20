@@ -1,18 +1,17 @@
 import { inject, signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink, SilverLinkTextElement } from 'src/services/links.service';
-import { BasicSilverLink } from '../BaseLinkImplementation';
 import { UnescapeUserInput } from 'src/app/helpers';
 import { SimpleDataColumn, SimpleTableData } from 'src/components/simple-table/simple-table.component';
 import { ComplexSilverLink } from '../ComplexSilverLink';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export class RegexSearchLink extends ComplexSilverLink {
-  public DomSanitizer = inject(DomSanitizer);
+  public DomSanitizer: DomSanitizer;
 
-  override Name = 'Regex Search';
+  override Name = 'Regex Find';
   override Category = 'Find and Replace';
-  override Description = `Apply a regex and display the results in a table.`;
+  override Description = `Apply a regex and display, supports various ways to display the result.`;
 
   override HasSettings = true;
   override ShowSettings = signal<boolean>(true);
@@ -75,11 +74,14 @@ export class RegexSearchLink extends ComplexSilverLink {
     },
   ];
 
+  constructor(domSanitizer: DomSanitizer) {
+    super();
+    this.DomSanitizer = domSanitizer;
+  }
+
   public override PerEntryOperation(entry: SilverLinkTextElement): SilverLinkTextElement {
     let output: SilverLinkTextElement = {};
     const Text = entry.Text;
-
-    console.log(Text);
 
     if (this.Settings.FindString === undefined || this.Settings.FindString.length === 0 || Text === undefined || Text.length === 0) {
       output.Text = Text;
@@ -257,6 +259,6 @@ export class RegexSearchLink extends ComplexSilverLink {
   }
 
   public override New(): SilverLink {
-    return new RegexSearchLink();
+    return new RegexSearchLink(this.DomSanitizer);
   }
 }

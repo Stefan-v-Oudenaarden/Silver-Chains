@@ -1,5 +1,5 @@
-import { Injectable, WritableSignal } from '@angular/core';
-import { SafeHtml } from '@angular/platform-browser';
+import { inject, Injectable, WritableSignal } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { SimpleTableData } from 'src/components/simple-table/simple-table.component';
@@ -14,6 +14,9 @@ import { ToSentenceCaseLink } from 'src/SilverLinks/Cases/ToSentenceCaseLink';
 import { ToSnakeCaseLink } from 'src/SilverLinks/Cases/ToSnakeCaseLink';
 import { ToTitleCaseLink } from 'src/SilverLinks/Cases/ToTitleCaseLink';
 import { ToUpperCaseLink } from 'src/SilverLinks/Cases/ToUpperCaseLink';
+import { ToMd5HashLink } from 'src/SilverLinks/Cypher/ToMd5HashLink';
+import { ToSha256HashLink } from 'src/SilverLinks/Cypher/ToShaHashLink';
+import { FromUrlEscapeLink, ToUrlEscapeLink } from 'src/SilverLinks/Cypher/UrlEscapeLink';
 import { ExtractDatesLink } from 'src/SilverLinks/Extraction/ExtractDatesLink';
 import { ExtractEmailsLink } from 'src/SilverLinks/Extraction/ExtractEmailsLink';
 import { ExtractNumbersLink } from 'src/SilverLinks/Extraction/ExtractNumbersLink';
@@ -26,6 +29,8 @@ import { AsHtmlLink } from 'src/SilverLinks/Parsing/ASHtmlLink';
 import { AsJsonLink } from 'src/SilverLinks/Parsing/AsJsonLink';
 import { AsMarkdownLink } from 'src/SilverLinks/Parsing/AsMarkdownLink';
 import { RegexSearchLink } from 'src/SilverLinks/Search&Replace/RegexSearchLink';
+import { RegexSearchReplaceLink } from 'src/SilverLinks/Search&Replace/RegexSearchReplaceLink';
+import { SearchLink } from 'src/SilverLinks/Search&Replace/SearchLink';
 import { SearchReplaceLink } from 'src/SilverLinks/Search&Replace/SearchReplaceLink';
 import { AlphabetizeLinesLink } from 'src/SilverLinks/Sorting/AphabetizeLinesLink';
 import { RandomizeLinesLink, RandomizeTextLink } from 'src/SilverLinks/Sorting/RandomizeTextLinks';
@@ -88,6 +93,8 @@ export interface SilverLink {
   providedIn: 'root',
 })
 export class LinksService {
+  public DomSanitizer = inject(DomSanitizer);
+
   public DevLinks: SilverLink[] = [];
 
   public Links: SilverLink[] = [
@@ -101,8 +108,10 @@ export class LinksService {
     new RandomNumbersLink(),
 
     //Search and Replace
+    new SearchLink(this.DomSanitizer),
+    new RegexSearchLink(this.DomSanitizer),
     new SearchReplaceLink(),
-    new RegexSearchLink(),
+    new RegexSearchReplaceLink(),
 
     //Parsing
     new AsMarkdownLink(),
@@ -126,6 +135,12 @@ export class LinksService {
     new RandomizeTextLink(),
     new RandomizeLinesLink(),
     new AlphabetizeLinesLink(),
+
+    //Cypher
+    new ToUrlEscapeLink(),
+    new FromUrlEscapeLink(),
+    new ToMd5HashLink(),
+    new ToSha256HashLink(),
 
     //Transformation
     new PadLineLink(),
@@ -152,6 +167,6 @@ export class LinksService {
     lorem.Settings.Static = true;
 
     // this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
-    this.DevLinks = [lorem, new RegexSearchLink()];
+    this.DevLinks = [lorem];
   }
 }
