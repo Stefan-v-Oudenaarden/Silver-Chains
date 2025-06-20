@@ -19,8 +19,6 @@ export class OutputPanelComponent implements OnInit {
   public SilverChainOutput = input<SilverLinkData>();
   public CopyOutputToInputSignal = output<string>();
 
-  public DomSanitizer = inject(DomSanitizer);
-
   public exportElement = viewChild<ElementRef<HTMLDivElement>>('outputElement');
 
   public IsSimpleTextOutput = computed(() => {
@@ -144,9 +142,5 @@ export class OutputPanelComponent implements OnInit {
     const minutes = now.getMinutes().toString().padStart(2, '0');
 
     return `${baseName} ${day}-${month}-${year} ${hours}-${minutes}.${extension}`;
-  }
-
-  public ConvertSafeHtml(htmlString: string): SafeHtml {
-    return this.DomSanitizer.bypassSecurityTrustHtml(htmlString);
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable, WritableSignal } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { SimpleTableData } from 'src/components/simple-table/simple-table.component';
@@ -41,7 +42,7 @@ export type SilverLinkTextElement = {
   HideTextField?: boolean;
   Information?: string;
   Image?: string;
-  HTMLString?: string;
+  HTML?: SafeHtml;
   Markdown?: string;
   Object?: any;
   Table?: SimpleTableData;

@@ -1,12 +1,15 @@
-import { signal } from '@angular/core';
+import { inject, signal } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { SilverLink, SilverLinkTextElement } from 'src/services/links.service';
 import { BasicSilverLink } from '../BaseLinkImplementation';
 import { UnescapeUserInput } from 'src/app/helpers';
 import { SimpleDataColumn, SimpleTableData } from 'src/components/simple-table/simple-table.component';
 import { ComplexSilverLink } from '../ComplexSilverLink';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export class RegexSearchLink extends ComplexSilverLink {
+  public DomSanitizer = inject(DomSanitizer);
+
   override Name = 'Regex Search';
   override Category = 'Find and Replace';
   override Description = `Apply a regex and display the results in a table.`;
@@ -98,7 +101,7 @@ export class RegexSearchLink extends ComplexSilverLink {
       case 'highlights':
         output.Text = Text;
         output.HideTextField = true;
-        output.HTMLString = this.BuildHtmlHighlight(regex, Text);
+        output.HTML = this.ConvertSafeHtml(this.BuildHtmlHighlight(regex, Text));
         break;
 
       case 'match':
@@ -247,6 +250,10 @@ export class RegexSearchLink extends ComplexSilverLink {
     }
 
     return output;
+  }
+
+  public ConvertSafeHtml(htmlString: string): SafeHtml {
+    return this.DomSanitizer.bypassSecurityTrustHtml(htmlString);
   }
 
   public override New(): SilverLink {
