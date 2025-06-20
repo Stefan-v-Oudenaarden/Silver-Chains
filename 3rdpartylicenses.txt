@@ -707,6 +707,24 @@ Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
 --------------------------------------------------------------------------------
+Package: spark-md5
+License: "(WTFPL OR MIT)"
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                    Version 2, December 2004
+
+ Copyright (C) 2015 André Cruz <amdfcruz@gmail.com>
+
+ Everyone is permitted to copy and distribute verbatim or modified
+ copies of this license document, and changing it is allowed as long
+ as the name is changed.
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
+
+--------------------------------------------------------------------------------
 Package: lorem-ipsum
 License: "ISC"
 
@@ -999,6 +1017,11 @@ THE SOFTWARE.
 --------------------------------------------------------------------------------
 Package: title-case
 License: "MIT"
+
+
+--------------------------------------------------------------------------------
+Package: @cryptography/sha256
+License: "GPL-3.0-or-later"
 
 
 --------------------------------------------------------------------------------
