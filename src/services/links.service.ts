@@ -16,6 +16,7 @@ import { ToTitleCaseLink } from 'src/SilverLinks/Cases/ToTitleCaseLink';
 import { ToUpperCaseLink } from 'src/SilverLinks/Cases/ToUpperCaseLink';
 import { FromBase64Link, ToBase64Link } from 'src/SilverLinks/Cypher/Base64EncodeLink';
 import { FromLeetLink, ToLeetLink } from 'src/SilverLinks/Cypher/LeetCypher';
+import { FromMorseLink, ToMorseLink } from 'src/SilverLinks/Cypher/MorseLink';
 import { FromNatoPhoneticLink, ToNatoPhoneticLink } from 'src/SilverLinks/Cypher/NatoPhonetic';
 import { ToMd5HashLink } from 'src/SilverLinks/Cypher/ToMd5HashLink';
 import { ToRot13Link } from 'src/SilverLinks/Cypher/ToRot13Link';
@@ -146,6 +147,8 @@ export class LinksService {
     new FromLeetLink(),
     new ToNatoPhoneticLink(),
     new FromNatoPhoneticLink(),
+    new ToMorseLink(),
+    new FromMorseLink(),
 
     new ToUrlEscapeLink(),
     new FromUrlEscapeLink(),
@@ -180,6 +183,6 @@ export class LinksService {
     lorem.Settings.Static = true;
 
     // this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
-    this.DevLinks = [lorem, new ToNatoPhoneticLink()];
+    this.DevLinks = [lorem, new ToMorseLink(), new FromMorseLink()];
   }
 }
