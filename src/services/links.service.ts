@@ -14,7 +14,11 @@ import { ToSentenceCaseLink } from 'src/SilverLinks/Cases/ToSentenceCaseLink';
 import { ToSnakeCaseLink } from 'src/SilverLinks/Cases/ToSnakeCaseLink';
 import { ToTitleCaseLink } from 'src/SilverLinks/Cases/ToTitleCaseLink';
 import { ToUpperCaseLink } from 'src/SilverLinks/Cases/ToUpperCaseLink';
+import { FromBase64Link, ToBase64Link } from 'src/SilverLinks/Cypher/Base64EncodeLink';
+import { FromLeetLink, ToLeetLink } from 'src/SilverLinks/Cypher/LeetCypher';
+import { FromNatoPhoneticLink, ToNatoPhoneticLink } from 'src/SilverLinks/Cypher/NatoPhonetic';
 import { ToMd5HashLink } from 'src/SilverLinks/Cypher/ToMd5HashLink';
+import { ToRot13Link } from 'src/SilverLinks/Cypher/ToRot13Link';
 import { ToSha256HashLink } from 'src/SilverLinks/Cypher/ToShaHashLink';
 import { FromUrlEscapeLink, ToUrlEscapeLink } from 'src/SilverLinks/Cypher/UrlEscapeLink';
 import { ExtractDatesLink } from 'src/SilverLinks/Extraction/ExtractDatesLink';
@@ -137,8 +141,17 @@ export class LinksService {
     new AlphabetizeLinesLink(),
 
     //Cypher
+    new ToRot13Link(),
+    new ToLeetLink(),
+    new FromLeetLink(),
+    new ToNatoPhoneticLink(),
+    new FromNatoPhoneticLink(),
+
     new ToUrlEscapeLink(),
     new FromUrlEscapeLink(),
+    new ToBase64Link(),
+    new FromBase64Link(),
+
     new ToMd5HashLink(),
     new ToSha256HashLink(),
 
@@ -167,6 +180,6 @@ export class LinksService {
     lorem.Settings.Static = true;
 
     // this.DevLinks = [lorem, new RandomizeLinesLink(), new ToLowerCaseLink()];
-    this.DevLinks = [lorem];
+    this.DevLinks = [lorem, new ToNatoPhoneticLink()];
   }
 }
