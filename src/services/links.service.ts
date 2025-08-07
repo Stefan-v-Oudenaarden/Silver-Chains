@@ -27,6 +27,7 @@ import { ExtractEmailsLink } from 'src/SilverLinks/Extraction/ExtractEmailsLink'
 import { ExtractNumbersLink } from 'src/SilverLinks/Extraction/ExtractNumbersLink';
 import { UniqueLinesLink } from 'src/SilverLinks/Extraction/UniqueLinesLink';
 import { UniqueWordsLink } from 'src/SilverLinks/Extraction/UniqueWordsLink';
+import { EmojiFilterLink } from 'src/SilverLinks/Filter/EmojiFilterLink';
 import { LorempIpsumLink } from 'src/SilverLinks/Generation/LoremIpsumLink';
 import { RandomNumbersLink } from 'src/SilverLinks/Generation/RandomNumbersLin';
 import { UUIDLink } from 'src/SilverLinks/Generation/UUIDLink';
@@ -140,6 +141,9 @@ export class LinksService {
     new RandomizeTextLink(),
     new RandomizeLinesLink(),
     new AlphabetizeLinesLink(),
+
+    //Filter
+    new EmojiFilterLink(),
 
     //Cypher
     new ToRot13Link(),

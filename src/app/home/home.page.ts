@@ -115,6 +115,7 @@ export class HomePage {
   public CategoriesDefaultState: Map<string, boolean> = new Map<string, boolean>([
     ['Generation', false],
     ['Find and Replace', false],
+    ['Filtering', false],
     ['Extraction', false],
     ['Sorting', false],
     ['Transformation', false],
